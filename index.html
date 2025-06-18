@@ -310,7 +310,9 @@
         return;
       }
 
-      hasil.forEach((item, index) => {
+      hasil.forEach((item) => {
+        const indexAsli = produkData.indexOf(item); // Ambil index asli di produkData
+      
         const col = document.createElement("div");
         col.className = "col-6 col-md-3";
         col.innerHTML = `
@@ -321,7 +323,7 @@
             <h6 class="fw-semibold">${item.nama}</h6>
             <p class="text-success fw-bold mb-1">Rp${item.harga.toLocaleString()}</p>
             <div class="d-flex justify-content-center gap-2">
-              <button class="btn btn-outline-primary btn-sm" onclick="showDetail(${index})">Detail</button>
+              <button class="btn btn-outline-primary btn-sm" onclick="showDetail(${indexAsli})">Detail</button>
               <a href="https://wa.me/6282340915319?text=Halo%20admin,%20saya%20ingin%20pesan%20${encodeURIComponent(item.nama)}%20(Rp${item.harga.toLocaleString()})" class="btn btn-success btn-sm" target="_blank">Pesan</a>
             </div>
           </div>
