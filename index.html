@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Putra Btt Store - Price List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .hero-slide { height: 350px; }
+    input::placeholder { color: #999; font-style: italic; }
+    .input-group-text { background-color: #f1f3f5; border-color: #ddd; }
+    #searchInput, #filterKategori { border-color: #ddd; border-radius: 0 8px 8px 0; }
+    .icon-box img { width: 100px; height: auto; object-fit: contain; }
+    @media (max-width: 768px) {
+      .hero-slide { height: 240px; }
+      .hero-slide .display-4 { font-size: 1.75rem; }
+      .hero-slide .lead { font-size: 1rem; }
+    }
+    .produk-section h2 { color: #222; margin-bottom: 2rem; }
+    .product-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      transition: all 0.3s ease-in-out;
+      background-color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    .icon-box { font-size: 44px; color: #0d6efd; margin-bottom: 10px; }
+    .btn-sm { font-size: 0.75rem; padding: 6px 10px; }
+    .product-card h6 { font-weight: 600; font-size: 1rem; margin-top: 0.5rem; }
+    .product-price { font-weight: bold; color: #2e7d32; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="d-flex align-items-center justify-content-center text-white hero-slide" style="background: url('https://images.unsplash.com/photo-1518972458649-b0f242a400ff?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;">
+          <div class="text-center bg-dark bg-opacity-50 p-3 rounded animate__animated animate__fadeIn">
+            <h1 class="display-4 fw-bold">Selamat Datang di Putra Btt Store</h1>
+            <p class="lead">Temukan produk terbaik & pesan langsung melaui admin!</p>
+            <a href="#produk" class="btn btn-warning btn-lg mt-2">Lihat Produk</a>
+          </div>
+        </div>
+      </div>
+      <!-- Tambahkan slide lainnya sesuai kebutuhan -->
+    </div>
+    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button> -->
+  </div>
+
+  <div class="row align-items-center mb-4 px-2 px-md-3">
+    <div class="col-md-6 mb-3 mb-md-0">
+      <div class="input-group shadow-sm">
+        <span class="input-group-text bg-white border-end-0 px-3">
+          <i class="fas fa-search text-muted"></i>
+        </span>
+        <input type="text" id="searchInput" class="form-control border-start-0 px-3 py-2" placeholder="Cari produk berdasarkan nama...">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group shadow-sm">
+        <span class="input-group-text bg-white border-end-0 px-3">
+          <i class="fas fa-filter text-muted"></i>
+        </span>
+        <select id="filterKategori" class="form-select border-start-0 px-3 py-2">
+            <option value="">🔄 Semua Kategori</option>
+            <option value="Langganan">🛎️ Langganan</option>
+            <option value="Streaming">📺 Streaming</option>
+            <option value="Penyimpanan">💾 Penyimpanan</option>
+            <option value="Software">🧩 Software</option>
+            <option value="Desain">🎨 Desain</option>
+            <option value="Produktivitas">📚 Produktivitas</option>
+            <option value="AI Tools">🤖 AI Tools</option>
+            <option value="Keamanan">🔐 Keamanan</option>
+            <option value="Game">🎮 Game</option>
+            <option value="Voucher">🎁 Voucher</option>
+        </select>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5 produk-section" id="produk">
+    <h2 class="fw-bold text-center mb-4">✨ Daftar Produk Unggulan ✨</h2>
+    <div class="row g-4" id="produk-list"></div>
+  </div>
+
+  <div class="modal fade" id="produkModal" tabindex="-1" aria-labelledby="produkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="produkModalLabel">Detail Produk</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-success" id="modalPesanBtn" target="_blank">Pesan Sekarang</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const produkData = [
+    {
+      nama: "YouTube Premium Full Garansi",
+      harga: 35000,
+      ikon: "icon/icons8-youtube.svg",
+      deskripsi: [
+        "<li>Langganan bebas iklan YouTube</li>",
+        "<li>Durasi 3 bulan</li>",
+        "<li>Support Semua Device</li>",
+        "<li>Full Garansi</li>"
+      ],
+      kategori: "Langganan"
+    },
+    {
+      nama: "Netflix Premium",
+      harga: 35000,
+      ikon: "icon/icons8-netflix.svg",
+      deskripsi: [
+        "<li>Full Garansi</li>",
+        "<li>Kualitas 4K</li>",
+        "<li>Support Semua Device</li>",
+        "<li>Less Limit</li>"
+      ],
+      kategori: "Streaming"
+    },
+    {
+      nama: "VIU Premium 1 Tahun",
+      harga: 10000,
+      ikon: "icon/icons8-viu.svg",
+      deskripsi: [
+        "<li>Akses penuh drama Asia & K-Drama terbaru.</li>",
+        "<li>Full Garansi Sesuai Durasi</li>",
+        "<li>Private Anti Limit</li>",
+        "<li>Support All Device</li>"
+      ],
+      kategori: "Streaming"
+    },
+    {
+      nama: "Google One 2TB + Gemini Pro ",
+      harga: 25000,
+      ikon: "icon/icons8-google-one.svg",
+      deskripsi: [
+        "<li>Penyimpanan cloud 2TB Google One selama 1 Tahun.</li>",
+        "<li>Bonus Gemini Pro 1 Tahun</li>"
+      ],
+      kategori: "Penyimpanan"
+    },
+    // {
+    //   nama: "iCloud 50GB",
+    //   harga: 15000,
+    //   ikon: "icon/icons8-icloud.svg",
+    //   deskripsi: [
+    //     "<li>Paket penyimpanan iCloud bulanan untuk Apple.</li>"
+    //   ],
+    //   kategori: "Penyimpanan"
+    // },
+    // {
+    //   nama: "Adobe Creative Cloud",
+    //   harga: 299000,
+    //   ikon: "icon/icons8-adobe.svg",
+    //   deskripsi: [
+    //     "<li>Akses semua software Adobe selama 1 bulan.</li>"
+    //   ],
+    //   kategori: "Software"
+    // },
+    {
+      nama: "Canva Pro 1 Tahun",
+      harga: 20000,
+      ikon: "icon/icons8-canva.svg",
+      deskripsi: [
+        "<li>Fitur desain premium untuk tim & individu.</li>",
+        "<li>Full garansi 1 tahun</li>",
+        "<li>Akses semua fitur premium</li>"
+      ],
+      kategori: "Desain"
+    },
+    {
+      nama: "CapCut Pro 1 Bulan",
+      harga: 20000,
+      ikon: "icon/capcut-svgrepo-com.svg",
+      deskripsi: [
+        "<li>Edit video tanpa watermark dan fitur premium.</li>",
+        "<li>Private Akun.</li>",
+        "<li>Support semua device</li>"
+      ],
+      kategori: "Desain"
+    },
+    {
+      nama: "ChatGPT Plus 1 Bulan",
+      harga: 25000,
+      ikon: "icon/icons8-chatgpt.svg",
+      deskripsi: [
+        "<li>Akses GPT-4, kecepatan tinggi & stabil.</li>",
+        "<li>Akun pribadi via invite</li>",
+        "<li>Garansi 25 hari</li>"
+      ],
+      kategori: "AI Tools"
+    },
+    {
+      nama: "Vidio Platinum 1 Bulan",
+      harga: 25000,
+      ikon: "icon/vidio.svg",
+      deskripsi: [
+        "<li>Private Akun</li>",
+        "<li>Full garansi 1 bulan</li>"
+      ],
+      kategori: "Streaming"
+    }
+  ];
+
+    const produkList = document.getElementById("produk-list");
+    const searchInput = document.getElementById("searchInput");
+    const filterKategori = document.getElementById("filterKategori");
+
+    function renderProduk(filterText = "", kategori = "") {
+      produkList.innerHTML = "";
+      const hasil = produkData.filter(item =>
+        item.nama.toLowerCase().includes(filterText.toLowerCase()) &&
+        (kategori === "" || item.kategori === kategori)
+      );
+
+      if (hasil.length === 0) {
+        produkList.innerHTML = `<div class="col-12 text-center"><p class="text-muted">Tidak ada produk ditemukan.</p></div>`;
+        return;
+      }
+
+      hasil.forEach((item, index) => {
+        const col = document.createElement("div");
+        col.className = "col-6 col-md-3";
+        col.innerHTML = `
+          <div class="card product-card text-center p-3 h-100">
+            <div class="icon-box">
+              <img src="${item.ikon}" alt="${item.nama}" width="40" height="40">
+            </div>
+            <h6 class="fw-semibold">${item.nama}</h6>
+            <p class="text-success fw-bold mb-1">Rp${item.harga.toLocaleString()}</p>
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-outline-primary btn-sm" onclick="showDetail(${index})">Detail</button>
+              <a href="https://wa.me/6282340915319?text=Halo%20admin,%20saya%20ingin%20pesan%20${encodeURIComponent(item.nama)}%20(Rp${item.harga.toLocaleString()})" class="btn btn-success btn-sm" target="_blank">Pesan</a>
+            </div>
+          </div>
+        `;
+        produkList.appendChild(col);
+      });
+    }
+
+    function showDetail(index) {
+    const item = produkData[index];
+    const deskripsiHTML = `<ul>${item.deskripsi.join('')}</ul>`;
+
+    document.getElementById("modalBody").innerHTML = `
+      <h5>${item.nama}</h5>
+      ${deskripsiHTML}
+      <p class="text-success fw-bold">Rp${item.harga.toLocaleString()}</p>
+    `;
+
+    document.getElementById("modalPesanBtn").href = `https://wa.me/6281234567890?text=Halo%20admin,%20saya%20ingin%20pesan%20${encodeURIComponent(item.nama)}%20(Rp${item.harga.toLocaleString()})`;
+
+    new bootstrap.Modal(document.getElementById('produkModal')).show();
+}
+
+
+    searchInput.addEventListener("input", () => {
+      renderProduk(searchInput.value, filterKategori.value);
+    });
+
+    filterKategori.addEventListener("change", () => {
+      renderProduk(searchInput.value, filterKategori.value);
+    });
+
+    renderProduk();
+  </script>
+</body>
+</html>
