@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Putra Btt Store - Price List</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Putra Btt Store - Price List (Google Sheets)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --primary-color: #6366f1;
@@ -22,397 +22,86 @@
       --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
       --gradient-accent: linear-gradient(135deg, var(--accent-color) 0%, var(--success-color) 100%);
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    .container-fluid {
-      background: var(--light-color);
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Header Section */
-    .hero-section {
-      background: var(--gradient-primary);
-      color: white;
-      padding: 4rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.1"><polygon points="0,0 1000,100 1000,0"/></svg>');
-      background-size: cover;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 3vw, 1.25rem);
-      opacity: 0.9;
-      margin-bottom: 2rem;
-    }
-
-    .cta-button {
-      background: var(--gradient-accent);
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
-    }
-
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
-    }
-
-    /* Search & Filter Section */
-    .search-section {
-      padding: 2rem 0;
-      background: white;
-      border-bottom: 1px solid #e2e8f0;
-    }
-
-    .search-input, .filter-select {
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      background: white;
-    }
-
-    .search-input:focus, .filter-select:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-      outline: none;
-    }
-
-    .input-group-custom {
-      position: relative;
-    }
-
-    .input-icon {
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #64748b;
-      z-index: 10;
-    }
-
-    .search-input {
-      padding-left: 3rem;
-    }
-
-    /* Products Section */
-    .products-section {
-      padding: 3rem 0;
-      background: var(--light-color);
-    }
-
-    .section-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--dark-color);
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-
-    .section-subtitle {
-      color: #64748b;
-      font-size: 1.1rem;
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    /* Product Cards */
-    .product-card {
-      background: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--card-shadow);
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      border: 1px solid #f1f5f9;
-      overflow: hidden;
-      height: 100%;
-      position: relative;
-    }
-
-    .product-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-primary);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--card-shadow-hover);
-    }
-
-    .product-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .product-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border-radius: 16px;
-      transition: all 0.3s ease;
-    }
-
-    .product-card:hover .product-icon {
-      background: var(--gradient-primary);
-      transform: scale(1.1);
-    }
-
-    .product-icon img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
-      filter: grayscale(1);
-      transition: filter 0.3s ease;
-    }
-
-    .product-card:hover .product-icon img {
-      filter: grayscale(0) brightness(0) invert(1);
-    }
-
-    .product-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--dark-color);
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
-    }
-
-    .product-price {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--success-color);
-      margin-bottom: 1.5rem;
-    }
-
-    .product-actions {
-      gap: 0.5rem;
-    }
-
-    .btn-detail {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      color: var(--dark-color);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      flex: 1;
-    }
-
-    .btn-detail:hover {
-      background: var(--primary-color);
-      border-color: var(--primary-color);
-      color: white;
-      transform: translateY(-1px);
-    }
-
-    .btn-order {
-      background: var(--gradient-accent);
-      border: none;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      flex: 1;
-    }
-
-    .btn-order:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
-    }
-
-    /* Category Badge */
-    .category-badge {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--gradient-primary);
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    /* Modal Styles */
-    .modal-content {
-      border-radius: var(--border-radius);
-      border: none;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-
-    .modal-header {
-      background: var(--gradient-primary);
-      color: white;
-      border-radius: var(--border-radius) var(--border-radius) 0 0;
-      padding: 1.5rem;
-    }
-
-    .modal-title {
-      font-weight: 600;
-      font-size: 1.25rem;
-    }
-
-    .btn-close {
-      filter: brightness(0) invert(1);
-    }
-
-    .modal-body {
-      padding: 2rem;
-    }
-
-    .modal-footer {
-      padding: 1.5rem;
-      border-top: 1px solid #f1f5f9;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .hero-section {
-        padding: 2rem 0;
-      }
-      
-      .section-title {
-        font-size: 2rem;
-      }
-      
-      .product-actions {
-        flex-direction: column;
-      }
-      
-      .btn-detail, .btn-order {
-        flex: none;
-        width: 100%;
-      }
-    }
-
-    /* Animation Classes */
-    .fade-in {
-      animation: fadeIn 0.6s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 3rem;
-      color: #64748b;
-    }
-
-    .empty-state i {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
-
-    /* Loading State */
-    .loading {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 200px;
-    }
-
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #f1f5f9;
-      border-top: 4px solid var(--primary-color);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    *{box-sizing:border-box}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;line-height:1.6}
+    .container-fluid{background:var(--light-color);min-height:100vh;margin:0;padding:0}
+    .hero-section{background:var(--gradient-primary);color:#fff;padding:4rem 0;position:relative;overflow:hidden}
+    .hero-section::before{content:"";position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.1"><polygon points="0,0 1000,100 1000,0"/></svg>');background-size:cover}
+    .hero-content{position:relative;z-index:2}
+    .hero-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:1rem;text-shadow:0 2px 4px rgba(0,0,0,.1)}
+    .hero-subtitle{font-size:clamp(1rem,3vw,1.25rem);opacity:.9;margin-bottom:2rem}
+    .cta-button{background:var(--gradient-accent);border:none;padding:1rem 2rem;border-radius:50px;font-weight:600;font-size:1.1rem;transition:.3s;box-shadow:0 4px 15px rgba(6,182,212,.3)}
+    .cta-button:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(6,182,212,.4)}
+    .search-section{padding:2rem 0;background:#fff;border-bottom:1px solid #e2e8f0}
+    .search-input,.filter-select{border:2px solid #e2e8f0;border-radius:12px;padding:.75rem 1rem;font-size:1rem;transition:.3s;background:#fff}
+    .input-group-custom{position:relative}
+    .input-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:#64748b;z-index:10}
+    .search-input{padding-left:3rem}
+    .products-section{padding:3rem 0;background:var(--light-color)}
+    .section-title{font-size:2.5rem;font-weight:700;color:var(--dark-color);margin-bottom:.5rem;text-align:center}
+    .section-subtitle{color:#64748b;font-size:1.1rem;text-align:center;margin-bottom:3rem}
+    .product-card{background:#fff;border-radius:var(--border-radius);box-shadow:var(--card-shadow);transition:all .4s cubic-bezier(.25,.8,.25,1);border:1px solid #f1f5f9;overflow:hidden;height:100%;position:relative}
+    .product-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient-primary);transform:scaleX(0);transition:transform .3s}
+    .product-card:hover{transform:translateY(-8px);box-shadow:var(--card-shadow-hover)}
+    .product-card:hover::before{transform:scaleX(1)}
+    .product-icon{width:64px;height:64px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);border-radius:16px;transition:.3s}
+    .product-card:hover .product-icon{background:var(--gradient-primary);transform:scale(1.1)}
+    .product-icon img{width:40px;height:40px;object-fit:contain;filter:grayscale(1);transition:filter .3s}
+    .product-card:hover .product-icon img{filter:grayscale(0) brightness(0) invert(1)}
+    .product-title{font-size:1rem;font-weight:600;color:var(--dark-color);margin-bottom:.5rem;line-height:1.4}
+    .product-price{font-size:1.25rem;font-weight:700;color:var(--success-color);margin-bottom:1.5rem}
+    .product-actions{gap:.5rem}
+    .btn-detail{background:#f8fafc;border:2px solid #e2e8f0;color:var(--dark-color);padding:.5rem 1rem;border-radius:8px;font-weight:500;transition:.3s;flex:1}
+    .btn-detail:hover{background:var(--primary-color);border-color:var(--primary-color);color:#fff;transform:translateY(-1px)}
+    .btn-order{background:var(--gradient-accent);border:none;color:#fff;padding:.5rem 1rem;border-radius:8px;font-weight:600;transition:.3s;flex:1}
+    .btn-order:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(6,182,212,.3)}
+    .category-badge{position:absolute;top:1rem;right:1rem;background:var(--gradient-primary);color:#fff;padding:.25rem .5rem;border-radius:6px;font-size:.75rem;font-weight:500}
+    .modal-content{border-radius:var(--border-radius);border:none;box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
+    .modal-header{background:var(--gradient-primary);color:#fff;border-radius:var(--border-radius) var(--border-radius) 0 0;padding:1.5rem}
+    .btn-close{filter:brightness(0) invert(1)}
+    .modal-body{padding:2rem}
+    .modal-footer{padding:1.5rem;border-top:1px solid #f1f5f9}
+    @media(max-width:768px){.hero-section{padding:2rem 0}.section-title{font-size:2rem}.product-actions{flex-direction:column}.btn-detail,.btn-order{width:100%}}
+    .fade-in{animation:fadeIn .6s ease-out forwards}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .empty-state{text-align:center;padding:3rem;color:#64748b}
+    .empty-state i{font-size:3rem;margin-bottom:1rem;opacity:.5}
+    .loading{display:flex;justify-content:center;align-items:center;height:200px}
+    .spinner{width:40px;height:40px;border:4px solid #f1f5f9;border-top:4px solid var(--primary-color);border-radius:50%;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    body:not(.loaded) .fade-in{opacity:0;transform:translateY(20px)}
+    body.loaded .fade-in{opacity:1;transform:translateY(0);transition:all .6s ease-out}
+    .search-input:hover,.filter-select:hover{border-color:var(--primary-color);box-shadow:0 2px 8px rgba(99,102,241,.1)}
+    @media (max-width:576px){.hero-title{font-size:2rem}.hero-subtitle{font-size:1rem}.cta-button{padding:.75rem 1.5rem;font-size:1rem}.product-card{margin-bottom:1rem}.category-badge{font-size:.7rem;padding:.2rem .4rem}}
+    .btn:focus,.form-control:focus,.form-select:focus{outline:2px solid var(--primary-color);outline-offset:2px}
+    @media print{.hero-section,.search-section,.modal,.product-actions{display:none !important}.product-card{break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
   </style>
 </head>
 <body>
   <div class="container-fluid">
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero-section">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center hero-content">
             <h1 class="hero-title">Putra Btt Store</h1>
             <p class="hero-subtitle">Solusi lengkap untuk kebutuhan digital Anda dengan harga terjangkau dan kualitas terpercaya</p>
-            <button class="btn cta-button" onclick="document.getElementById('produk').scrollIntoView({behavior: 'smooth'})">
-              <i class="fas fa-shopping-cart me-2"></i>
-              Mulai Belanja
+            <button class="btn cta-button" onclick="document.getElementById('produk').scrollIntoView({behavior:'smooth'})">
+              <i class="fas fa-shopping-cart me-2"></i> Mulai Belanja
             </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Search & Filter Section -->
+    <!-- Search & Filter -->
     <section class="search-section">
       <div class="container">
         <div class="row g-3">
           <div class="col-md-6">
             <div class="input-group-custom">
               <i class="fas fa-search input-icon"></i>
-              <input type="text" id="searchInput" class="form-control search-input" placeholder="Cari produk favorit Anda...">
+              <input type="text" id="searchInput" class="form-control search-input" placeholder="Cari produk favorit Anda..." />
             </div>
           </div>
           <div class="col-md-6">
@@ -434,39 +123,28 @@
       </div>
     </section>
 
-    <!-- Products Section -->
+    <!-- Products -->
     <section class="products-section" id="produk">
       <div class="container">
         <h2 class="section-title">Produk Digital Terpilih</h2>
         <p class="section-subtitle">Dapatkan akses premium ke aplikasi dan layanan terbaik dengan harga yang ramah di kantong</p>
-        
-        <div class="row g-4" id="produk-list">
-          <!-- Products will be loaded here -->
-        </div>
+        <div class="row g-4" id="produk-list"></div>
       </div>
     </section>
   </div>
 
-  <!-- Product Detail Modal -->
+  <!-- Modal -->
   <div class="modal fade" id="produkModal" tabindex="-1" aria-labelledby="produkModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="produkModalLabel">
-            <i class="fas fa-info-circle me-2"></i>
-            Detail Produk
-          </h5>
+          <h5 class="modal-title" id="produkModalLabel"><i class="fas fa-info-circle me-2"></i> Detail Produk</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
         </div>
-        <div class="modal-body" id="modalBody">
-          <!-- Product details will be loaded here -->
-        </div>
+        <div class="modal-body" id="modalBody"></div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-          <a href="#" class="btn btn-success" id="modalPesanBtn" target="_blank">
-            <i class="fab fa-whatsapp me-2"></i>
-            Pesan via WhatsApp
-          </a>
+          <a href="#" class="btn btn-success" id="modalPesanBtn" target="_blank"><i class="fab fa-whatsapp me-2"></i> Pesan via WhatsApp</a>
         </div>
       </div>
     </div>
@@ -474,189 +152,30 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const produkData = [
-      {
-        nama: "YouTube Premium Full Garansi",
-        harga: 45000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Langganan bebas iklan YouTube</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Durasi 3 bulan</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Support Semua Device</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Full Garansi</li>"
-        ],
-        kategori: "Langganan"
-      },
-      {
-        nama: "Netflix Premium",
-        harga: 35000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/netflix.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Full Garansi</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Kualitas 4K</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Support Semua Device</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Less Limit</li>"
-        ],
-        kategori: "Streaming"
-      },
-      {
-        nama: "VIU Premium 1 Tahun",
-        harga: 10000,
-        ikon: "icon/icons8-viu.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Akses penuh drama Asia & K-Drama terbaru</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Full Garansi Sesuai Durasi</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Private Anti Limit</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Support All Device</li>"
-        ],
-        kategori: "Streaming"
-      },
-      {
-        nama: "Google One 2TB + Gemini Pro",
-        harga: 25000,
-        ikon: "icon/icons8-google-one.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Penyimpanan cloud 2TB Google One selama 1 Tahun</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Bonus Gemini Pro 1 Tahun</li>"
-        ],
-        kategori: "Penyimpanan"
-      },
-      {
-        nama: "Amazon Prime Video 1 Bulan",
-        harga: 20000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/amazonprime.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Durasi Full 1 Bulan</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Garansi Full 1 Bulan</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Akses Semua Film di Amazon Prime</li>"
-        ],
-        kategori: "Streaming"
-      },
-      {
-        nama: "ZOOM 100 Peserta 14 Hari",
-        harga: 10000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/zoom.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Durasi 14 hari</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>100 Peserta</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Private Akun</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Full Garansi</li>"
-        ],
-        kategori: "Produktivitas"
-      },
-      {
-        nama: "IQIYI 1 Bulan",
-        harga: 25000,
-        ikon: "https://img.icons8.com/color/480/iqiyi.png",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Private Akun</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Plan Premium</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Garansi Backfree</li>"
-        ],
-        kategori: "Streaming"
-      },
-      {
-        nama: "Spotify Premium 1 Bulan",
-        harga: 20000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/spotify.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Family Plan</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Akun Seller</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Garansi Full 30 Hari</li>"
-        ],
-        kategori: "Langganan"
-      },
-      {
-        nama: "Disney+ Hotstar 1 Bulan",
-        harga: 50000,
-        ikon: "icon/icons8-disney.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Private akun</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Plan Premium</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Full garansi</li>"
-        ],
-        kategori: "Streaming"
-      },
-      {
-        nama: "Canva Pro 1 Tahun",
-        harga: 20000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/canva.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Fitur desain premium untuk tim & individu</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Full garansi 1 tahun</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Akses semua fitur premium</li>"
-        ],
-        kategori: "Desain"
-      },
-      {
-        nama: "CapCut Pro 1 Bulan",
-        harga: 20000,
-        ikon: "icon/capcut-svgrepo-com.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Edit video tanpa watermark dan fitur premium</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Private Akun</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Support semua device</li>"
-        ],
-        kategori: "Desain"
-      },
-      {
-        nama: "ChatGPT Plus 1 Bulan",
-        harga: 30000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/openai.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Akses GPT-4, kecepatan tinggi & stabil</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Akun pribadi via invite</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Garansi 25 hari</li>"
-        ],
-        kategori: "AI Tools"
-      },
-      {
-        nama: "Vidio Platinum 1 Bulan",
-        harga: 30000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/v.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Private Akun</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Full garansi 1 bulan</li>"
-        ],
-        kategori: "Streaming"
-      },
-      {
-        nama: "Google Drive 1TB Lifetime",
-        harga: 25000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/googledrive.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Storage 1 TB</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Garansi 1 Bulan</li>"
-        ],
-        kategori: "Penyimpanan"
-      },
-      {
-        nama: "ExpressVPN 1 Bulan",
-        harga: 15000,
-        ikon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/expressvpn.svg",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Durasi 1 Bulan</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Akun Private</li>"
-        ],
-        kategori: "Keamanan"
-      },
-      {
-        nama: "Perplexity Pro 1 Bulan",
-        harga: 20000,
-        ikon: "https://img.icons8.com/ios/500/perplexity-ai.png",
-        deskripsi: [
-          "<li><i class='fas fa-check text-success me-2'></i>Garansi 7 hari</li>",
-          "<li><i class='fas fa-check text-success me-2'></i>Akun Private</li>"
-        ],
-        kategori: "AI Tools"
-      }
-    ];
+    // =============================
+    // 1) KONFIGURASI GOOGLE SHEETS
+    // =============================
+    // Cara dapat SHEET_ID: buka sheet -> URL: https://docs.google.com/spreadsheets/d/THIS_IS_SHEET_ID/edit
+    // Pastikan sheet bisa diakses publik: File > Share > Share to web OR anyone with link can view.
+    const SHEET_ID = "1QKZb5BXVqrNyxcrA6mbL1sII2hkZ2MMS1KqRr6pzf-4";          // ganti
+    const SHEET_NAME = "Produk";                         // ganti sesuai nama sheet/tab
+
+    // Endpoint JSON (Google Visualization API). Tidak perlu API key.
+    const SHEET_JSON_URL =
+      `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+
+    // Struktur kolom di Sheet (baris 1 adalah header):
+    // A: nama | B: harga | C: ikon | D: deskripsi (pisahkan poin dengan "||") | E: kategori | F: wa (opsional)
+
+    // =============================
+    // 2) STATE & ELEMEN DOM
+    // =============================
+    let produkData = []; // akan diisi dari Google Sheets
 
     const produkList = document.getElementById("produk-list");
     const searchInput = document.getElementById("searchInput");
     const filterKategori = document.getElementById("filterKategori");
 
-    // Category icons mapping
     const categoryIcons = {
       "Langganan": "🛎️",
       "Streaming": "📺",
@@ -672,22 +191,16 @@
 
     function showLoading() {
       produkList.innerHTML = `
-        <div class="col-12">
-          <div class="loading">
-            <div class="spinner"></div>
-          </div>
-        </div>
+        <div class="col-12"><div class="loading"><div class="spinner"></div></div></div>
       `;
     }
 
     function renderProduk(filterText = "", kategori = "") {
       showLoading();
-      
-      // Simulate loading delay for better UX
       setTimeout(() => {
         produkList.innerHTML = "";
         const hasil = produkData.filter(item =>
-          item.nama.toLowerCase().includes(filterText.toLowerCase()) &&
+          (item.nama || "").toLowerCase().includes(filterText.toLowerCase()) &&
           (kategori === "" || item.kategori === kategori)
         );
 
@@ -699,112 +212,120 @@
                 <h4>Produk tidak ditemukan</h4>
                 <p>Coba ubah kata kunci pencarian atau filter kategori</p>
               </div>
-            </div>
-          `;
+            </div>`;
           return;
         }
 
-        hasil.forEach((item, index) => {
-          const indexAsli = produkData.indexOf(item);
+        hasil.forEach((item, idx) => {
           const categoryIcon = categoryIcons[item.kategori] || "📦";
-          
           const col = document.createElement("div");
           col.className = "col-lg-3 col-md-4 col-sm-6";
           col.innerHTML = `
-            <div class="card product-card fade-in" style="animation-delay: ${index * 0.1}s">
-              <div class="category-badge">${categoryIcon} ${item.kategori}</div>
+            <div class="card product-card fade-in" style="animation-delay: ${idx * 0.1}s">
+              <div class="category-badge">${categoryIcon} ${item.kategori || ''}</div>
               <div class="card-body p-3 text-center">
                 <div class="product-icon">
-                  <img src="${item.ikon}" alt="${item.nama}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHJ4PSI4IiBmaWxsPSIjNjM2NmYxIi8+PHRleHQgeD0iMjAiIHk9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiPjw+PC90ZXh0Pjwvc3ZnPg=='">
+                  <img src="${item.ikon || ''}" alt="${item.nama || ''}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHJ4PSI4IiBmaWxsPSIjNjM2NmYxIi8+PHRleHQgeD0iMjAiIHk9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiPjw+PC90ZXh0Pjwvc3ZnPg=='">
                 </div>
-                <h6 class="product-title">${item.nama}</h6>
-                <div class="product-price">Rp${item.harga.toLocaleString('id-ID')}</div>
+                <h6 class="product-title">${item.nama || ''}</h6>
+                <div class="product-price">Rp${(item.harga || 0).toLocaleString('id-ID')}</div>
                 <div class="d-flex product-actions">
-                  <button class="btn btn-detail" onclick="showDetail(${indexAsli})">
-                    <i class="fas fa-info-circle me-1"></i>
-                    Detail
-                  </button>
-                  <a href="https://wa.me/6282340915319?text=Halo%20admin,%20saya%20ingin%20pesan%20${encodeURIComponent(item.nama)}%20(Rp${item.harga.toLocaleString('id-ID')})" class="btn btn-order" target="_blank">
-                    <i class="fas fa-shopping-cart me-1"></i>
-                    Pesan
-                  </a>
+                  <button class="btn btn-detail" onclick="showDetail(${idx})"><i class="fas fa-info-circle me-1"></i> Detail</button>
+                  <a class="btn btn-order" target="_blank" href="https://wa.me/${encodeURIComponent(item.wa || '6282340915319')}?text=${encodeURIComponent(`Halo admin, saya ingin pesan ${item.nama} (Rp${(item.harga||0).toLocaleString('id-ID')})`)}"><i class="fas fa-shopping-cart me-1"></i> Pesan</a>
                 </div>
               </div>
-            </div>
-          `;
+            </div>`;
           produkList.appendChild(col);
         });
-      }, 300);
+      }, 150);
     }
 
-    function showDetail(index) {
-      const item = produkData[index];
+    function showDetail(idx) {
+      const item = produkData[idx];
       const categoryIcon = categoryIcons[item.kategori] || "📦";
-      const deskripsiHTML = `<ul class="list-unstyled">${item.deskripsi.join('')}</ul>`;
+      const fitur = (item.deskripsi || []).map(li => `<li><i class='fas fa-check text-success me-2'></i>${li}</li>`).join("");
 
       document.getElementById("modalBody").innerHTML = `
         <div class="row">
           <div class="col-md-4 text-center mb-3">
-            <div class="product-icon mx-auto" style="width: 80px; height: 80px;">
-              <img src="${item.ikon}" alt="${item.nama}" style="width: 60px; height: 60px;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHJ4PSIxMiIgZmlsbD0iIzYzNjZmMSIvPjx0ZXh0IHg9IjMwIiB5PSIzNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSJib2xkIj48PjwvdGV4dD48L3N2Zz4='">
+            <div class="product-icon mx-auto" style="width:80px;height:80px;">
+              <img src="${item.ikon || ''}" alt="${item.nama || ''}" style="width:60px;height:60px;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHJ4PSIxMiIgZmlsbD0iIzYzNjZmMSIvPjx0ZXh0IHg9IjMwIiB5PSIzNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSJib2xkIj48PjwvdGV4dD48L3N2Zz4='">
             </div>
-            <span class="badge bg-primary mt-2">${categoryIcon} ${item.kategori}</span>
+            <span class="badge bg-primary mt-2">${categoryIcon} ${item.kategori || ''}</span>
           </div>
           <div class="col-md-8">
-            <h5 class="fw-bold mb-3">${item.nama}</h5>
+            <h5 class="fw-bold mb-3">${item.nama || ''}</h5>
             <div class="mb-3">
               <h6 class="text-muted mb-2">Fitur & Keunggulan:</h6>
-              ${deskripsiHTML}
+              <ul class="list-unstyled">${fitur}</ul>
             </div>
             <div class="alert alert-success d-flex align-items-center" role="alert">
               <i class="fas fa-tag me-2"></i>
-              <div>
-                <strong>Harga Spesial: Rp${item.harga.toLocaleString('id-ID')}</strong>
-              </div>
+              <div><strong>Harga Spesial: Rp${(item.harga || 0).toLocaleString('id-ID')}</strong></div>
             </div>
           </div>
-        </div>
-      `;
+        </div>`;
 
-      document.getElementById("modalPesanBtn").href = `https://wa.me/6282340915319?text=Halo%20admin,%20saya%20ingin%20pesan%20${encodeURIComponent(item.nama)}%20(Rp${item.harga.toLocaleString('id-ID')})`;
+      document.getElementById("modalPesanBtn").href = `https://wa.me/${encodeURIComponent(item.wa || '6282340915319')}?text=${encodeURIComponent(`Halo admin, saya ingin pesan ${item.nama} (Rp${(item.harga||0).toLocaleString('id-ID')})`)}`;
 
       new bootstrap.Modal(document.getElementById('produkModal')).show();
     }
 
-    // Event Listeners
-    searchInput.addEventListener("input", () => {
-      renderProduk(searchInput.value, filterKategori.value);
-    });
+    // =============================
+    // 3) FETCH DARI GOOGLE SHEETS
+    // =============================
+    async function loadProdukFromSheet() {
+      showLoading();
+      try {
+        const res = await fetch(SHEET_JSON_URL, { cache: 'no-store' });
+        const text = await res.text();
+        // Response diawali "/*O_o*/\ngoogle.visualization.Query.setResponse(" dan diakhiri ");"
+        const json = JSON.parse(text.substring(47, text.length - 2));
+        const rows = json.table.rows || [];
 
-    filterKategori.addEventListener("change", () => {
-      renderProduk(searchInput.value, filterKategori.value);
-    });
+        produkData = rows.map(r => {
+          const c = r.c || [];
+          const nama = c[0]?.v ?? "";
+          const hargaRaw = c[1]?.v ?? 0;
+          const harga = Number(hargaRaw) || 0;
+          const ikon = c[2]?.v ?? "";
+          const deskripsiStr = (c[3]?.v ?? "").toString();
+          const deskripsi = deskripsiStr
+            .split("||")
+            .map(s => s.trim())
+            .filter(Boolean);
+          const kategori = c[4]?.v ?? "";
+          const wa = c[5]?.v ?? "6282340915319"; // default WA
+          return { nama, harga, ikon, deskripsi, kategori, wa };
+        });
 
-    // Smooth scrolling for internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
+        renderProduk();
+        document.body.classList.add('loaded');
+      } catch (err) {
+        console.error("Gagal memuat data sheet:", err);
+        produkList.innerHTML = `
+          <div class="col-12">
+            <div class="empty-state">
+              <i class="fas fa-triangle-exclamation"></i>
+              <h4>Gagal memuat data</h4>
+              <p>Periksa kembali pengaturan berbagi Google Sheet, SHEET_ID, dan nama sheet/tab.</p>
+              <code>${SHEET_JSON_URL}</code>
+            </div>
+          </div>`;
+      }
+    }
 
-    // Initialize products
-    renderProduk();
+    // =============================
+    // 4) EVENT LISTENERS & INIT
+    // =============================
+    searchInput.addEventListener("input", () => renderProduk(searchInput.value, filterKategori.value));
+    filterKategori.addEventListener("change", () => renderProduk(searchInput.value, filterKategori.value));
 
-    // Add some interactivity
-    document.addEventListener('DOMContentLoaded', function() {
-      // Animate hero section on load
+    document.addEventListener('DOMContentLoaded', () => {
       const heroContent = document.querySelector('.hero-content');
       if (heroContent) {
         heroContent.style.opacity = '0';
         heroContent.style.transform = 'translateY(30px)';
-        
         setTimeout(() => {
           heroContent.style.transition = 'all 0.8s ease-out';
           heroContent.style.opacity = '1';
@@ -812,7 +333,6 @@
         }, 100);
       }
 
-      // Add scroll effect to search section
       const searchSection = document.querySelector('.search-section');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -822,90 +342,18 @@
           }
         });
       }, { threshold: 0.1 });
-
       if (searchSection) {
         searchSection.style.transform = 'translateY(20px)';
         searchSection.style.opacity = '0';
         searchSection.style.transition = 'all 0.6s ease-out';
         observer.observe(searchSection);
       }
+
+      // MULAI: load data dari Google Sheets
+      loadProdukFromSheet();
     });
 
-    // Add loading state for better UX
-    window.addEventListener('load', function() {
-      document.body.classList.add('loaded');
-    });
+    window.addEventListener('load', () => document.body.classList.add('loaded'));
   </script>
-
-  <style>
-    /* Additional loading styles */
-    body:not(.loaded) .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    body.loaded .fade-in {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.6s ease-out;
-    }
-
-    /* Hover effects for better interaction */
-    .search-input:hover,
-    .filter-select:hover {
-      border-color: var(--primary-color);
-      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
-    }
-
-    /* Better mobile experience */
-    @media (max-width: 576px) {
-      .hero-title {
-        font-size: 2rem;
-      }
-      
-      .hero-subtitle {
-        font-size: 1rem;
-      }
-      
-      .cta-button {
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
-      }
-      
-      .product-card {
-        margin-bottom: 1rem;
-      }
-      
-      .category-badge {
-        font-size: 0.7rem;
-        padding: 0.2rem 0.4rem;
-      }
-    }
-
-    /* Enhanced accessibility */
-    .btn:focus,
-    .form-control:focus,
-    .form-select:focus {
-      outline: 2px solid var(--primary-color);
-      outline-offset: 2px;
-    }
-
-    /* Print styles */
-    @media print {
-      .hero-section,
-      .search-section,
-      .modal,
-      .product-actions {
-        display: none !important;
-      }
-      
-      .product-card {
-        break-inside: avoid;
-        box-shadow: none;
-        border: 1px solid #ddd;
-      }
-    }
-  </style>
 </body>
 </html>
-
