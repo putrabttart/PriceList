@@ -219,7 +219,7 @@
         hasil.forEach((item, idx) => {
           const categoryIcon = categoryIcons[item.kategori] || "📦";
           const col = document.createElement("div");
-          col.className = "col-lg-3 col-md-4 col-sm-6";
+          col.className = "col-lg-3 col-md-4 col-sm-6 col-6";
           col.innerHTML = `
             <div class="card product-card fade-in" style="animation-delay: ${idx * 0.1}s">
               <div class="category-badge">${categoryIcon} ${item.kategori || ''}</div>
@@ -357,3 +357,4 @@
   </script>
 </body>
 </html>
+
