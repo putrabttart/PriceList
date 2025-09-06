@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rekomendasi Film & Musik — Putra Btt Store</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --primary-color:#6366f1;--secondary-color:#8b5cf6;--accent-color:#06b6d4;--success-color:#10b981;--warning-color:#f59e0b;--danger-color:#ef4444;
+      --dark-color:#0f172a;--light-color:#f8fafc;--muted-color:#64748b;--bg-page:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      --bg-surface:#ffffff;--text-main:#0f172a;
+      --card-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
+      --card-shadow-hover:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);
+      --border-radius:16px;--gradient-primary:linear-gradient(135deg,var(--primary-color) 0%,var(--secondary-color) 100%);
+      --gradient-accent:linear-gradient(135deg,var(--accent-color) 0%,var(--success-color) 100%);
+      --nav-h:64px;
+    }
+    html[data-theme="dark"]{
+      --bg-page:linear-gradient(135deg,#0b1220 0%,#141a2b 100%);
+      --bg-surface:#0f172a;--text-main:#e5e7eb;--light-color:#0b1020;--muted-color:#9aa4b2;
+      --card-shadow:0 1px 2px rgba(0,0,0,.6);--card-shadow-hover:0 10px 20px rgba(0,0,0,.6);
+    }
+    *{box-sizing:border-box}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-page);min-height:100vh;line-height:1.6;color:var(--text-main)}
+    .container-fluid{background:var(--bg-surface);min-height:100vh;margin:0;padding:0}
+
+    /* ===== Shared Glass Navbar ===== */
+    .nav-glass{
+      position:sticky; top:0; z-index:1100;
+      background:rgba(255,255,255,.65);
+      backdrop-filter:saturate(1.2) blur(10px);
+      border-bottom:1px solid #e2e8f0;
+    }
+    html[data-theme="dark"] .nav-glass{ background:rgba(15,23,42,.7); border-color:#1f2a44; }
+    .navbar-brand{ font-weight:900; letter-spacing:.2px; background:var(--gradient-primary); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .nav-link{ font-weight:700; border-radius:999px; padding:.45rem .9rem !important; }
+    .nav-link:hover{ background:rgba(99,102,241,.1); }
+    html[data-theme="dark"] .nav-link:hover{ background:rgba(99,102,241,.15); }
+    .nav-link.active{ color:#fff !important; background:var(--gradient-primary); }
+    .navbar-toggler{ border:0; } .navbar-toggler:focus{ box-shadow:none; }
+    .nav-icon-btn{
+      width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;border-radius:12px;border:2px solid #e2e8f0;background:#fff;color:#0f172a;
+    }
+    html[data-theme="dark"] .nav-icon-btn{ background:#0b1220; border-color:#1f2a44; color:#e5e7eb; }
+
+    /* Topbar (search/tabs/chips) offset di bawah navbar */
+    .topbar{ position:sticky; top:var(--nav-h); z-index:1000; background:#fff0; border-bottom:1px solid #e2e8f0; backdrop-filter:saturate(1.1) blur(6px); }
+    html[data-theme="dark"] .topbar{ background:#0f172acc; border-color:#1f2a44; }
+    .search-section{ padding:1rem 0 }
+    .search-input,.sort-select{ border:2px solid #e2e8f0; border-radius:12px; padding:.75rem 1rem; background:#fff; color:#0f172a; }
+    html[data-theme="dark"] .search-input, html[data-theme="dark"] .sort-select{ background:#0b1220; border-color:#1f2a44; color:#e5e7eb; }
+    .input-group-custom{ position:relative }
+    .input-icon{ position:absolute; left:1rem; top:50%; transform:translateY(-50%); color:#64748b; z-index:10 }
+    .search-input{ padding-left:3rem }
+
+    /* Tabs (Film/Musik) */
+    .pill-tabs{ display:flex; gap:.5rem; flex-wrap:wrap }
+    .pill{ border:2px solid #e2e8f0; background:#fff; color:#0f172a; padding:.5rem .9rem; border-radius:999px; font-weight:800; cursor:pointer }
+    .pill.active{ background:var(--gradient-primary); color:#fff; border-color:transparent }
+    html[data-theme="dark"] .pill{ background:#0b1220; border-color:#1f2a44; color:#e5e7eb }
+    html[data-theme="dark"] .pill.active{ background:var(--gradient-primary); color:#fff }
+
+    /* Platform chips */
+    .platform-nav{ display:flex; gap:.5rem; overflow:auto; padding:.25rem; margin-top:.5rem }
+    .platform-chip{ flex:0 0 auto; border:2px solid #e2e8f0; background:#fff; color:#0f172a; padding:.45rem .7rem; border-radius:999px; font-weight:700; white-space:nowrap; cursor:pointer }
+    .platform-chip.active{ background:var(--gradient-primary); color:#fff; border-color:transparent }
+    html[data-theme="dark"] .platform-chip{ background:#0b1220; border-color:#1f2a44; color:#e5e7eb }
+    html[data-theme="dark"] .platform-chip.active{ background:var(--gradient-primary); color:#fff }
+
+    /* Section & cards */
+    .recs-section{ padding:2rem 0; background:var(--light-color) }
+    html[data-theme="dark"] .recs-section{ background:#0b1020 }
+    .rec-card{ background:var(--bg-surface); border-radius:var(--border-radius); box-shadow:var(--card-shadow); border:1px solid #f1f5f9; overflow:hidden; height:100%; position:relative; transition:.25s }
+    html[data-theme="dark"] .rec-card{ border-color:#1f2a44 }
+    .rec-card:hover{ transform:translateY(-6px); box-shadow:var(--card-shadow-hover) }
+    .rec-thumb{ position:relative; background:#fff }
+    .rec-thumb img{ width:100%; height:180px; object-fit:cover; display:block }
+    .rec-body{ padding:12px }
+    .rec-title{ font-size:1rem; font-weight:800; line-height:1.25; margin-bottom:.25rem; color:var(--text-main) }
+    .rec-meta{ font-size:.875rem; color:var(--muted-color) }
+    .badge-platform{ position:absolute; top:.6rem; left:.6rem; background:#ffffffcc; border:1px solid #e2e8f0; border-radius:999px; padding:.2rem .5rem; font-weight:800; display:flex; gap:.35rem; align-items:center }
+    html[data-theme="dark"] .badge-platform{ background:#0b1220cc; border-color:#1f2a44 }
+    .rating{ font-weight:800; color:var(--text-main) }
+
+    /* Modal kontras */
+    .modal-content{ border-radius:var(--border-radius); border:none; box-shadow:0 25px 50px -12px rgba(0,0,0,.25); background:var(--bg-surface); color:var(--text-main) }
+    .modal-header{ background:var(--gradient-primary); color:#fff; border-radius:var(--border-radius) var(--border-radius) 0 0; padding:1.1rem }
+    .btn-close{ filter:brightness(0) invert(1) }
+    .modal-body{ padding:1rem; color:var(--text-main) }
+    .modal-footer{ border-top:1px solid #f1f5f9 }
+    html[data-theme="dark"] .modal-footer{ border-color:#1f2a44 }
+
+    /* Floating Dark */
+    .floating-dark{ position:fixed; left:16px; bottom:16px; z-index:900; border:2px solid #e5e7eb; background:#fff; border-radius:999px; width:48px; height:48px; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.15) }
+    .floating-dark i{ font-size:1.1rem }
+    html[data-theme="dark"] .floating-dark{ background:#0b1220; border-color:#1f2a44; color:#e5e7eb }
+
+    .empty-state{text-align:center;padding:3rem;color:var(--muted-color)}
+    .empty-state i{font-size:3rem;margin-bottom:1rem;opacity:.5}
+    .loading{display:flex;justify-content:center;align-items:center;height:200px}
+    .spinner{width:40px;height:40px;border:4px solid #f1f5f9;border-top:4px solid var(--primary-color);border-radius:50%;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    main{ scroll-margin-top:calc(var(--nav-h) + 16px); }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <!-- NAVBAR (sama seperti index, tanpa cart) -->
+    <nav class="navbar navbar-expand-lg nav-glass" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Putra Btt Store</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item"><a class="nav-link" href="index.html">Produk</a></li>
+            <li class="nav-item"><a class="nav-link active" href="rekomendasi.html">Rekomendasi</a></li>
+          </ul>
+
+          <div class="d-flex align-items-center gap-2 ms-lg-3">
+            <button id="navDarkBtn" class="nav-icon-btn" title="Toggle Dark Mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <section class="search-section">
+        <div class="container">
+          <div class="row g-2 g-md-3 align-items-center">
+            <div class="col-12 col-md-7">
+              <div class="input-group-custom">
+                <i class="fas fa-search input-icon"></i>
+                <input type="text" id="searchInput" class="form-control search-input" placeholder="Cari judul, artis, genre..." />
+              </div>
+            </div>
+            <div class="col-12 col-md-5">
+              <select id="sortSelect" class="form-select sort-select" aria-label="Urutkan">
+                <option value="">↕️ Urutkan: Default</option>
+                <option value="rating_desc">⭐ Rating Tertinggi</option>
+                <option value="judul_asc">🔤 Judul A–Z</option>
+                <option value="tahun_desc">📅 Terbaru (Film)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-3 d-flex flex-wrap align-items-center justify-content-between">
+            <div class="pill-tabs" id="typeTabs">
+              <button class="pill active" data-type="film"><i class="fa-solid fa-clapperboard me-1"></i>Film</button>
+              <button class="pill" data-type="musik"><i class="fa-solid fa-music me-1"></i>Musik</button>
+            </div>
+            <div class="platform-nav" id="platformNav"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- LIST -->
+    <main id="recs">
+      <section class="recs-section">
+        <div class="container">
+          <div class="row g-3" id="recList"></div>
+          <div class="text-center mt-2">
+            <button class="btn btn-outline-primary px-4 py-2" id="btnLoadMore"><i class="fa-solid fa-rotate"></i> Muat Lebih</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL DETAIL -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fa-solid fa-info-circle me-2"></i> Detail</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer">
+          <a href="#" target="_blank" id="modalAction" class="btn" style="background:var(--gradient-primary);color:#fff;border:none;border-radius:10px;padding:.55rem 1rem;font-weight:800">
+            <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Buka Platform
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Dark -->
+  <button class="floating-dark" id="floatingDarkBtn" title="Toggle Dark Mode">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // ======= CONFIG GOOGLE SHEETS =======
+    const SHEET_ID = "1fJV0rQVontmEaP8-FS6C44Q_PwvcqoyYDFQQ6Z-aKGg"; // GANTI
+    const SHEET_FILM = "Film";
+    const SHEET_MUSIK = "Musik";
+    const urlGViz = (sheetName)=>`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+
+    // ======= STATE =======
+    let typeActive = "film";
+    let dataFilm = [];
+    let dataMusik = [];
+    let viewData = [];
+    let page = 1;
+    const perPage = 12;
+
+    const recList = document.getElementById("recList");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const btnLoadMore = document.getElementById("btnLoadMore");
+    const typeTabs = document.getElementById("typeTabs");
+    const platformNav = document.getElementById("platformNav");
+    let platformActive = "";
+
+    // Navbar offset dinamis
+    function setNavOffset(){
+      const nav = document.getElementById('mainNavbar');
+      if(!nav) return; const h = nav.offsetHeight || 64;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+    }
+    window.addEventListener('resize', setNavOffset);
+    document.addEventListener('shown.bs.collapse', setNavOffset);
+    document.addEventListener('hidden.bs.collapse', setNavOffset);
+
+    // Platform -> ikon FA (ikon aman)
+    const platformIcons = {
+      "Netflix":"fa-film","Disney+":"fa-star","Prime Video":"fa-amazon","Amazon Prime Video":"fa-amazon",
+      "Max":"fa-circle-play","HBO Go":"fa-circle-play","VIU":"fa-circle-play","Apple TV+":"fa-apple",
+      "Apple TV":"fa-apple","YouTube":"fa-youtube","YouTube Music":"fa-youtube",
+      "Spotify":"fa-spotify","Apple Music":"fa-apple","Deezer":"fa-circle-play","Joox":"fa-circle-play","Tidal":"fa-wave-square"
+    };
+    const faIconForPlatform = pf => platformIcons[pf] || "fa-circle-play";
+
+    function showLoading(){ recList.innerHTML = `<div class="col-12"><div class="loading"><div class="spinner"></div></div></div>`; }
+    function parseGViz(text){ return JSON.parse(text.substring(47, text.length-2)); }
+
+    async function loadSheet(sheetName){
+      const res = await fetch(urlGViz(sheetName), {cache: 'no-store'});
+      const txt = await res.text();
+      const json = parseGViz(txt);
+      const rows = json.table.rows || [];
+      return rows.map(r=>{
+        const c=r.c||[]; const v = i => c[i]?.v ?? "";
+        if(sheetName===SHEET_FILM){
+          return {tipe:"film",judul:v(0),platform:v(1),tahun:Number(v(2))||"",rating:Number(v(3))||0,genre:v(4),poster:v(5),link:v(6),deskripsi:v(7)};
+        }else{
+          return {tipe:"musik",judul:v(0),platform:v(1),artis:v(2),rating:Number(v(3))||0,genre:v(4),cover:v(5),link:v(6),deskripsi:v(7)};
+        }
+      });
+    }
+
+    function buildPlatformSet(){
+      const list = (typeActive==="film"?dataFilm:dataMusik).map(d=>d.platform).filter(Boolean);
+      return ["Semua"].concat([...new Set(list)]);
+    }
+
+    function renderPlatformChips(){
+      platformNav.innerHTML = "";
+      const items = buildPlatformSet();
+      items.forEach(pf=>{
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "platform-chip" + ((platformActive==="" && pf==="Semua" || platformActive===pf)? " active":"");
+        btn.setAttribute("data-pf", pf==="Semua"?"":pf);
+        if(!pf || ["Semua"].includes(pf)){
+          btn.innerHTML = `<i class="fa-solid fa-table-cells"></i> Semua`;
+        } else {
+          const icon = faIconForPlatform(pf);
+          // fallback untuk beberapa nama
+          const safe = ["Max","HBO Go","VIU","Deezer","Joox"].includes(pf) ? "fa-circle-play" : icon;
+          const cls = icon.startsWith("fa-") ? (icon.includes("spotify")||icon.includes("amazon")||icon.includes("youtube")||icon.includes("apple") ? `fa-brands ${icon}` : `fa-solid ${safe}`) : `fa-solid ${safe}`;
+          btn.innerHTML = `<i class="${cls}"></i> ${pf}`;
+        }
+        platformNav.appendChild(btn);
+      });
+    }
+
+    function applyFilterSort(){
+      const q=(searchInput.value||"").toLowerCase();
+      const src = typeActive==="film" ? dataFilm : dataMusik;
+      viewData = src.filter(item=>{
+        const hay = [
+          item.judul, item.genre, item.platform,
+          item.tipe==="film"? item.tahun : item.artis
+        ].join(" ").toLowerCase();
+        const pfOK = (platformActive==="" || item.platform===platformActive);
+        return hay.includes(q) && pfOK;
+      });
+      const s = sortSelect.value;
+      if(s==="rating_desc") viewData.sort((a,b) => (b.rating||0) - (a.rating||0));
+      else if(s==="judul_asc") viewData.sort((a,b)=>(a.judul||"").localeCompare(b.judul||""));
+      else if(s==="tahun_desc" && typeActive==="film") viewData.sort((a,b)=>(b.tahun||0)-(a.tahun||0));
+      page = 1;
+    }
+
+    function renderList(append=false){
+      const start=(page-1)*perPage;
+      const slice=viewData.slice(start,start+perPage);
+      if(!append) recList.innerHTML = "";
+      if(slice.length===0 && !append){
+        recList.innerHTML = `<div class="col-12"><div class="empty-state"><i class="fa-regular fa-face-meh"></i><h4>Belum ada rekomendasi</h4><p>Coba ubah pencarian atau platform</p></div></div>`;
+        btnLoadMore.style.display="none"; return;
+      }
+      slice.forEach((it,idx)=>{
+        const col = document.createElement("div");
+        col.className = "col-lg-3 col-md-4 col-sm-6 col-6";
+        const imgSrc = (it.tipe==="film" ? it.poster : it.cover) || "";
+        const meta = it.tipe==="film" ? `${it.tahun || "—"} • ${it.genre||"—"}` : `${it.artis||"—"} • ${it.genre||"—"}`;
+        const rateStar = typeActive==="film" ? `${(it.rating||0).toFixed(1)}/10` : `${(it.rating||0).toFixed(1)}/5`;
+        const icon = faIconForPlatform(it.platform);
+        const brandCls = icon.includes("spotify")||icon.includes("amazon")||icon.includes("youtube")||icon.includes("apple") ? `fa-brands ${icon}` : `fa-solid ${icon}`;
+        col.innerHTML = `
+          <div class="rec-card">
+            <div class="badge-platform"><i class="${brandCls}"></i> <span>${it.platform||'—'}</span></div>
+            <div class="rec-thumb">
+              <img src="${imgSrc}" alt="${(it.judul||'')}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDgwJyBoZWlnaHQ9JzI3MCcgdmlld0JveD0nMCAwIDQ4MCAyNzAnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHJlY3Qgd2lkdGg9JzQ4MCcgaGVpZ2h0PScyNzAnIHJ4PScxNycgZmlsbD0nI2ZmZicgc3Ryb2tlPScjZTJlOGYwJyBzdHJva2Utd2lkdGg9JzEnLz48bGluZSB4MT0nMCcgeTE9JzAnIHgyPSc0ODAnIHkyPScyNzAnIHN0cm9rZT0nI2UyZThmMCcgc3Ryb2tlLXdpZHRoPScxJy8+PC9zdmc+'">
+            </div>
+            <div class="rec-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="rec-title">${it.judul||''}</h6>
+                <span class="rating"><i class="fa-solid fa-star me-1 text-warning"></i>${rateStar}</span>
+              </div>
+              <div class="rec-meta">${meta}</div>
+              <div class="mt-2 d-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary flex-fill" data-detail="${typeActive}-${idx+start}">
+                  <i class="fa-solid fa-circle-info me-1"></i>Detail
+                </button>
+                <a href="${it.link||'#'}" target="_blank" class="btn btn-sm flex-fill" style="background:var(--gradient-primary);color:#fff">
+                  <i class="fa-solid fa-arrow-up-right-from-square me-1"></i>${it.tipe==='film'?'Tonton':'Dengar'}
+                </a>
+              </div>
+            </div>
+          </div>`;
+        recList.appendChild(col);
+      });
+      btnLoadMore.style.display = (viewData.length > (start + slice.length)) ? "inline-block" : "none";
+    }
+
+    // Detail modal
+    const modalEl = document.getElementById("detailModal");
+    const bsModal = new bootstrap.Modal(modalEl);
+    const modalBody = document.getElementById("modalBody");
+    const modalAction = document.getElementById("modalAction");
+
+    function openDetail(globalIndex){
+      const item = viewData[globalIndex];
+      if(!item) return;
+      const isFilm = item.tipe==="film";
+      const poster = isFilm ? item.poster : item.cover;
+      const icon = faIconForPlatform(item.platform);
+      const brandCls = icon.includes("spotify")||icon.includes("amazon")||icon.includes("youtube")||icon.includes("apple") ? `fa-brands ${icon}` : `fa-solid ${icon}`;
+      const metaL = isFilm ? [
+        ["Platform", item.platform||"—"],
+        ["Tahun", item.tahun||"—"],
+        ["Genre", item.genre||"—"],
+        ["Rating", `${(item.rating||0).toFixed(1)}/10`]
+      ] : [
+        ["Platform", item.platform||"—"],
+        ["Artis", item.artis||"—"],
+        ["Genre", item.genre||"—"],
+        ["Rating", `${(item.rating||0).toFixed(1)}/5`]
+      ];
+      const metaHTML = metaL.map(([k,v])=>`<div><strong>${k}:</strong> ${v}</div>`).join("");
+      modalBody.innerHTML = `
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="border rounded-3 overflow-hidden" style="background:#fff">
+              <img src="${poster||''}" alt="${item.judul||''}" style="width:100%;height:auto" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAwJyBoZWlnaHQ9JzQyMCcgdmlld0JveD0nMCAwIDMwMCA0MjAnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHJlY3Qgd2lkdGg9JzMwMCcgaGVpZ2h0PSc0MjAnIHJ4PScxNycgZmlsbD0nI2ZmZicgc3Ryb2tlPScjZTJlOGYwJy8+PC9zdmc+'">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="badge-platform"><i class="${brandCls}"></i> ${item.platform||'—'}</span>
+            </div>
+            <h4 class="fw-bold mb-2">${item.judul||''}</h4>
+            <div class="mb-2">${metaHTML}</div>
+            <p class="mb-0">${item.deskripsi||''}</p>
+          </div>
+        </div>`;
+      modalAction.href = item.link || "#";
+      modalAction.textContent = isFilm ? "Buka Platform Streaming" : "Buka Platform Musik";
+      bsModal.show();
+    }
+
+    // Event Bindings
+    document.addEventListener("click",(e)=>{
+      if(e.target.closest("[data-detail]")){
+        const b = e.target.closest("[data-detail]");
+        const [t, idxStr] = b.dataset.detail.split("-");
+        openDetail(Number(idxStr));
+      }
+    });
+    btnLoadMore.addEventListener("click", ()=>{page+=1; renderList(true);});
+    sortSelect.addEventListener("change", ()=>{applyFilterSort(); renderList(false);});
+    searchInput.addEventListener("input", ()=>{applyFilterSort(); renderList(false);});
+
+    typeTabs.addEventListener("click", (e)=>{
+      const p = e.target.closest(".pill");
+      if(!p) return;
+      [...typeTabs.querySelectorAll(".pill")].forEach(el=>el.classList.remove("active"));
+      p.classList.add("active");
+      typeActive = p.getAttribute("data-type");
+      platformActive = "";
+      renderPlatformChips();
+      applyFilterSort();
+      renderList(false);
+    });
+
+    platformNav.addEventListener("click",(e)=>{
+      const b = e.target.closest(".platform-chip");
+      if(!b) return;
+      platformActive = b.getAttribute("data-pf") || "";
+      [...platformNav.querySelectorAll(".platform-chip")].forEach(el=>el.classList.toggle("active", el===b));
+      applyFilterSort();
+      renderList(false);
+    });
+
+    // Dark Mode (floating + navbar sinkron)
+    (function initTheme(){
+      const saved=localStorage.getItem("pbt_theme")||"light";
+      document.documentElement.setAttribute("data-theme",saved);
+      const floatingBtn=document.getElementById("floatingDarkBtn");
+      const navBtn=document.getElementById("navDarkBtn");
+      const setIcon=(btn)=>{ if(!btn) return; btn.innerHTML=`<i class="fa-solid ${document.documentElement.getAttribute('data-theme')==='dark'?'fa-sun':'fa-moon'}"></i>`; };
+      setIcon(floatingBtn); setIcon(navBtn);
+
+      function toggleTheme(){
+        const mode=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+        document.documentElement.setAttribute("data-theme",mode);
+        localStorage.setItem("pbt_theme",mode);
+        setIcon(floatingBtn); setIcon(navBtn);
+      }
+      floatingBtn.addEventListener("click",toggleTheme);
+      navBtn.addEventListener("click",toggleTheme);
+    })();
+
+    // Active nav highlight
+    (function setActiveNav(){
+      const path = location.pathname.split('/').pop() || 'rekomendasi.html';
+      document.querySelectorAll('.nav-link').forEach(n=>{
+        const href = n.getAttribute('href');
+        if(href && href.endsWith(path)) n.classList.add('active');
+      });
+    })();
+
+    // Init
+    async function init(){
+      setNavOffset();
+      showLoading();
+      try{
+        const [films, musics] = await Promise.all([loadSheet(SHEET_FILM), loadSheet(SHEET_MUSIK)]);
+        dataFilm = films; dataMusik = musics;
+      }catch(e){
+        console.error(e);
+        recList.innerHTML = `<div class="col-12"><div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><h4>Gagal memuat data</h4><p>Periksa ID Sheet & akses sharing</p><code>${urlGViz(SHEET_FILM)}</code></div></div>`;
+        btnLoadMore.style.display="none";
+        return;
+      }
+      renderPlatformChips();
+      applyFilterSort();
+      renderList(false);
+    }
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
