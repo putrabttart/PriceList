@@ -167,6 +167,35 @@
     @keyframes spin{to{transform:rotate(360deg)}}
     .btn:focus,.form-control:focus,.form-select:focus{outline:2px solid var(--primary-color);outline-offset:2px;box-shadow:none}
 
+    /* ==== FIX: Modal tidak ketutup navbar / status bar di mobile ==== */
+    .modal{ z-index:1200; } /* di atas navbar/topbar */
+    .modal-dialog{ margin:0.75rem auto; }
+    
+    /* Safe area untuk perangkat dengan notch + offset tinggi navbar */
+    @supports (padding: max(0px)) {
+      .modal{
+        padding-top: max(env(safe-area-inset-top, 0px), calc(var(--nav-h) + 10px));
+        padding-left: max(8px, env(safe-area-inset-left, 0px));
+        padding-right: max(8px, env(safe-area-inset-right, 0px));
+        padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+      }
+    }
+    
+    @media (max-width: 576px){
+      .modal-dialog{ margin:0; }               /* full-width rapi */
+      .modal-content{ border-radius:16px; }
+      /* Header nempel di atas saat scroll isi modal */
+      .modal-header{
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background: var(--gradient-primary);
+        color:#fff;
+      }
+      .btn-close{ filter:brightness(0) invert(1); }
+    }
+
+
     /* Grid mobile 2 kolom */
     @media (max-width:576px){#produk-list .col-6{flex:0 0 50%;max-width:50%}}
 
@@ -321,6 +350,20 @@
   </button>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Pastikan variabel tinggi navbar up-to-date saat modal dibuka
+    const navbar = document.getElementById('mainNavbar');
+    function refreshNavH(){
+      const h = navbar ? navbar.offsetHeight : 64;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+    }
+    ['resize','orientationchange'].forEach(ev=>window.addEventListener(ev, refreshNavH));
+    document.addEventListener('shown.bs.modal', refreshNavH);
+    document.addEventListener('shown.bs.collapse', refreshNavH);
+    document.addEventListener('hidden.bs.collapse', refreshNavH);
+    refreshNavH();
+  </script>
+
   <script>
     // ========= SHEETS CONFIG =========
     const SHEET_ID = "1QKZb5BXVqrNyxcrA6mbL1sII2hkZ2MMS1KqRr6pzf-4";
@@ -682,4 +725,5 @@
   </script>
 </body>
 </html>
+
 
