@@ -56,6 +56,56 @@
     .input-icon{ position:absolute; left:1rem; top:50%; transform:translateY(-50%); color:#64748b; z-index:10 }
     .search-input{ padding-left:3rem }
 
+    /* === FIX: warna teks navigasi & ikon di DARK MODE === */
+    html[data-theme="dark"] .nav-glass .navbar-nav .nav-link{
+      color:#e5e7eb !important;          /* abu terang, terlihat */
+    }
+    html[data-theme="dark"] .nav-glass .navbar-nav .nav-link:hover{
+      color:#ffffff !important;
+      background:rgba(99,102,241,.18);   /* sedikit highlight */
+    }
+    html[data-theme="dark"] .nav-glass .navbar-nav .nav-link.active{
+      color:#ffffff !important;          /* pastikan putih saat aktif */
+      background:var(--gradient-primary);
+    }
+    
+    /* Brand tetap terbaca (kalau tidak pakai gradient text) */
+    html[data-theme="dark"] .nav-glass .navbar-brand{
+      color:#e5e7eb;                      /* aman; akan kalah oleh gradient kalau ada */
+    }
+    
+    /* Toggler (ikon hamburger) terlihat di dark */
+    .navbar-toggler{
+      border:0;
+      color:inherit;
+    }
+    .navbar-toggler:focus{ box-shadow:none; }
+    
+    /* Ganti svg default bootstrap dengan garis berwarna currentColor */
+    .navbar-toggler-icon{
+      width:1.5rem;height:1.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='currentColor' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    /* Warna ikon hamburger mengikuti tema */
+    .nav-glass .navbar-toggler{ color:#0f172a; }             /* light */
+    html[data-theme="dark"] .nav-glass .navbar-toggler{ color:#e5e7eb; } /* dark */
+    
+    /* Jika pakai offcanvas/dropdown untuk menu, pastikan kontrasnya juga OK */
+    html[data-theme="dark"] .offcanvas,
+    html[data-theme="dark"] .dropdown-menu{
+      background:#0b1220;
+      color:#e5e7eb;
+      border-color:#1f2a44;
+    }
+    html[data-theme="dark"] .dropdown-item{
+      color:#e5e7eb;
+    }
+    html[data-theme="dark"] .dropdown-item:hover{
+      color:#fff;
+      background:rgba(99,102,241,.18);
+    }
+
+
     /* Tabs (Film/Musik) */
     .pill-tabs{ display:flex; gap:.5rem; flex-wrap:wrap }
     .pill{ border:2px solid #e2e8f0; background:#fff; color:#0f172a; padding:.5rem .9rem; border-radius:999px; font-weight:800; cursor:pointer }
