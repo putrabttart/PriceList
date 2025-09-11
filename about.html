@@ -282,6 +282,10 @@
       transform: translateY(-1px);
     }
 
+    .modal { --bs-modal-zindex: 1200; z-index: var(--bs-modal-zindex) !important; }
+    .modal-backdrop { --bs-backdrop-zindex: 1190; z-index: var(--bs-backdrop-zindex) !important; }
+    .modal-open .nav-glass { z-index: 100 !important; }
+
     /* Payment Methods - Redesigned */
     .payment-grid {
       display: grid;
@@ -1436,4 +1440,5 @@
     });
   </script>
 </body>
+
 </html>
