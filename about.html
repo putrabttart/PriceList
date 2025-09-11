@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tentang — Putra Btt Store</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #6366f1;
+      --secondary-color: #8b5cf6;
+      --accent-color: #06b6d4;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --dark-color: #0f172a;
+      --light-color: #f8fafc;
+      --muted-color: #64748b;
+      --bg-page: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --bg-surface: #ffffff;
+      --text-main: #0f172a;
+      --text-secondary: #64748b;
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06);
+      --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04);
+      --border-radius: 16px;
+      --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      --gradient-accent: linear-gradient(135deg, var(--accent-color) 0%, var(--success-color) 100%);
+      --nav-h: 64px;
+    }
+
+    html[data-theme="dark"] {
+      --bg-page: linear-gradient(135deg, #0b1220 0%, #141a2b 100%);
+      --bg-surface: #1e293b;
+      --text-main: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --light-color: #0b1020;
+      --muted-color: #94a3b8;
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, .3), 0 2px 4px -1px rgba(0, 0, 0, .2);
+      --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, .4), 0 10px 10px -5px rgba(0, 0, 0, .3);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-page);
+      min-height: 100vh;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container-fluid {
+      background: var(--bg-surface);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== Glass Navbar ===== */
+    .nav-glass {
+      position: sticky;
+      top: 0;
+      z-index: 1100;
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: saturate(1.2) blur(12px);
+      border-bottom: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    html[data-theme="dark"] .nav-glass {
+      background: rgba(30, 41, 59, .85);
+      border-color: #334155;
+    }
+
+    .navbar-brand {
+      font-weight: 900;
+      letter-spacing: .2px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    html[data-theme="dark"] .navbar-brand {
+      color: var(--text-main) !important;
+      -webkit-background-clip: unset;
+      background-clip: unset;
+      background: none;
+    }
+
+    .nav-link {
+      font-weight: 700;
+      border-radius: 999px;
+      padding: .5rem 1rem !important;
+      color: var(--text-main) !important;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+      background: rgba(99, 102, 241, .1);
+      color: var(--primary-color) !important;
+    }
+
+    .nav-link.active {
+      color: #fff !important;
+      background: var(--gradient-primary);
+    }
+
+    .navbar-toggler {
+      border: 0;
+      color: var(--text-main);
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+
+    .nav-icon-btn {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      background: #fff;
+      color: #0f172a;
+      transition: all 0.3s ease;
+    }
+
+    html[data-theme="dark"] .nav-icon-btn {
+      background: #334155;
+      border-color: #475569;
+      color: #f8fafc;
+    }
+
+    .navbar-toggler-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='currentColor' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(3rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3rem);
+      background:
+        radial-gradient(1200px 600px at -10% -10%, rgba(99, 102, 241, .12), transparent 60%),
+        radial-gradient(900px 500px at 110% 10%, rgba(6, 182, 212, .08), transparent 65%),
+        linear-gradient(135deg, rgba(99, 102, 241, .08), rgba(139, 92, 246, .08));
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    html[data-theme="dark"] .hero {
+      border-color: #334155;
+      background:
+        radial-gradient(1200px 600px at -10% -10%, rgba(99, 102, 241, .18), transparent 60%),
+        radial-gradient(900px 500px at 110% 10%, rgba(6, 182, 212, .12), transparent 65%),
+        linear-gradient(135deg, rgba(99, 102, 241, .15), rgba(139, 92, 246, .15));
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--bg-surface);
+      border: 2px solid #e2e8f0;
+      border-radius: 999px;
+      padding: .4rem .8rem;
+      font-weight: 800;
+      font-size: .85rem;
+      color: var(--text-main);
+      box-shadow: var(--card-shadow);
+    }
+
+    html[data-theme="dark"] .tag {
+      border-color: #334155;
+    }
+
+    .hero-title {
+      letter-spacing: .2px;
+    }
+
+    .hero-gradient {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Cards & sections */
+    .section {
+      padding: 3rem 0;
+    }
+
+    .card-soft {
+      background: var(--bg-surface);
+      border: 1px solid #f1f5f9;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .card-soft:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    html[data-theme="dark"] .card-soft {
+      border-color: #334155;
+      background: var(--bg-surface);
+    }
+
+    .card-head {
+      padding: 1.5rem 1.5rem 1rem 1.5rem;
+      border-bottom: 1px solid #f1f5f9;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .03), rgba(139, 92, 246, .03));
+    }
+
+    html[data-theme="dark"] .card-head {
+      border-color: #334155;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .08), rgba(139, 92, 246, .08));
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    /* KPI pills */
+    .kpis {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .kpi {
+      background: var(--bg-surface);
+      border: 1px solid #f1f5f9;
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+      min-width: 160px;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+    }
+
+    html[data-theme="dark"] .kpi {
+      border-color: #334155;
+    }
+
+    .kpi-num {
+      font-weight: 900;
+      font-size: 1.25rem;
+      line-height: 1;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .kpi-label {
+      font-size: .85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Buttons */
+    .btn-gradient {
+      background: var(--gradient-primary);
+      color: #fff !important;
+      border: none;
+      box-shadow: 0 8px 20px -8px rgba(99, 102, 241, .6);
+      transition: all 0.3s ease;
+    }
+
+    .btn-gradient:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    /* Payment Methods - Redesigned */
+    .payment-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .payment-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .payment-card {
+      background: var(--bg-surface);
+      border: 2px solid #f1f5f9;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+
+    .payment-card:hover {
+      border-color: var(--primary-color);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    html[data-theme="dark"] .payment-card {
+      border-color: #334155;
+    }
+
+    html[data-theme="dark"] .payment-card:hover {
+      border-color: var(--primary-color);
+    }
+
+    .payment-header {
+      background: linear-gradient(135deg, rgba(99, 102, 241, .08), rgba(139, 92, 246, .08));
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    html[data-theme="dark"] .payment-header {
+      border-color: #334155;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .15), rgba(139, 92, 246, .15));
+    }
+
+    .payment-item {
+      display: flex;
+      align-items: center;
+      justify-content: between;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid #f8fafc;
+      transition: all 0.3s ease;
+    }
+
+    .payment-item:last-child {
+      border-bottom: none;
+    }
+
+    .payment-item:hover {
+      background: rgba(99, 102, 241, .03);
+    }
+
+    html[data-theme="dark"] .payment-item {
+      border-color: #334155;
+    }
+
+    html[data-theme="dark"] .payment-item:hover {
+      background: rgba(99, 102, 241, .08);
+    }
+
+    .payment-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .payment-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .payment-details {
+      font-size: .9rem;
+      color: var(--text-secondary);
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      background: var(--bg-surface);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: .6rem 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary-color);
+      color: #fff !important;
+      border-color: var(--primary-color);
+      transform: translateY(-1px);
+    }
+
+    html[data-theme="dark"] .copy-btn {
+      background: #334155;
+      border-color: #475569;
+      color: var(--text-main);
+    }
+
+    /* QRIS Section - Completely Redesigned */
+    .qris-section {
+      background: var(--bg-surface);
+      border: 2px solid #f1f5f9;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      margin-top: 1.5rem;
+    }
+
+    html[data-theme="dark"] .qris-section {
+      border-color: #334155;
+    }
+
+    .qris-header {
+      background: linear-gradient(135deg, rgba(99, 102, 241, .1), rgba(139, 92, 246, .1));
+      padding: 1.5rem;
+      border-bottom: 1px solid #f1f5f9;
+      text-align: center;
+    }
+
+    html[data-theme="dark"] .qris-header {
+      border-color: #334155;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .2), rgba(139, 92, 246, .2));
+    }
+
+    .qris-content {
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .qris-preview {
+      display: inline-block;
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(99, 102, 241, .2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .qris-preview:hover {
+      transform: scale(1.02);
+      box-shadow: 0 16px 40px rgba(99, 102, 241, .3);
+    }
+
+    .qris-preview img {
+      width: 280px;
+      height: 280px;
+      object-fit: contain;
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .qris-preview img {
+        width: 220px;
+        height: 220px;
+      }
+    }
+
+    .qris-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: var(--gradient-primary);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, .3);
+    }
+
+    .qris-info {
+      margin-bottom: 1.5rem;
+    }
+
+    .qris-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .qris-subtitle {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .qris-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Modal Improvements */
+    .modal-content {
+      border: none;
+      border-radius: 24px;
+      background: var(--bg-surface);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .2);
+    }
+
+    html[data-theme="dark"] .modal-content {
+      background: var(--bg-surface);
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, rgba(99, 102, 241, .08), rgba(139, 92, 246, .08));
+      border-bottom: 1px solid #f1f5f9;
+      border-radius: 24px 24px 0 0;
+    }
+
+    html[data-theme="dark"] .modal-header {
+      border-color: #334155;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .15), rgba(139, 92, 246, .15));
+    }
+
+    .modal-title {
+      color: var(--text-main);
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .modal-qr-image {
+      max-width: 100%;
+      width: auto;
+      max-height: 70vh;
+      border-radius: 20px;
+      box-shadow: 0 12px 32px rgba(99, 102, 241, .2);
+      background: #fff;
+      padding: 1.5rem;
+    }
+
+    /* Contact & Info Cards */
+    .bullet {
+      display: flex;
+      gap: .75rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .bullet i {
+      margin-top: .2rem;
+      color: var(--primary-color);
+    }
+
+    .contact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border: 2px solid #f1f5f9;
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .03), rgba(139, 92, 246, .03));
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    html[data-theme="dark"] .contact-item {
+      border-color: #334155;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .08), rgba(139, 92, 246, .08));
+    }
+
+    .contact-item i {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+
+    .contact-item .label {
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-item .value {
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .contact-item .value:hover {
+      color: var(--primary-color);
+    }
+
+    /* Chips */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      border: 2px solid #e2e8f0;
+      background: var(--bg-surface);
+      border-radius: 999px;
+      padding: .4rem .8rem;
+      font-weight: 700;
+      font-size: .85rem;
+      color: var(--text-main);
+      transition: all 0.3s ease;
+    }
+
+    html[data-theme="dark"] .chip {
+      border-color: #334155;
+    }
+
+    /* Hours Box */
+    .hours-box {
+      border: 2px solid #f1f5f9;
+      border-radius: 16px;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .03), rgba(139, 92, 246, .03));
+    }
+
+    html[data-theme="dark"] .hours-box {
+      border-color: #334155;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .08), rgba(139, 92, 246, .08));
+    }
+
+    .hours-title {
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: .75rem;
+    }
+
+    .hours-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hours-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      padding: .5rem 0;
+      border-top: 1px solid #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .hours-list li:first-child {
+      border-top: 0;
+    }
+
+    html[data-theme="dark"] .hours-list li {
+      border-color: #334155;
+    }
+
+    /* Floating Dark Mode Button */
+    .floating-dark {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 900;
+      border: 2px solid #e2e8f0;
+      background: var(--bg-surface);
+      border-radius: 999px;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--card-shadow-hover);
+      transition: all 0.3s ease;
+      color: var(--text-main);
+    }
+
+    .floating-dark:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .2);
+    }
+
+    html[data-theme="dark"] .floating-dark {
+      border-color: #334155;
+    }
+
+    .floating-dark i {
+      font-size: 1.2rem;
+    }
+
+    /* Alerts */
+    .alert {
+      border: 2px solid rgba(16, 185, 129, .2);
+      background: linear-gradient(135deg, rgba(16, 185, 129, .08), rgba(16, 185, 129, .03));
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 0;
+    }
+
+    .alert i {
+      color: var(--success-color);
+    }
+
+    .alert strong {
+      color: var(--text-main);
+    }
+
+    /* Text Colors Fix for Dark Mode */
+    html[data-theme="dark"] .text-muted {
+      color: var(--text-secondary) !important;
+    }
+
+    html[data-theme="dark"] .text-secondary {
+      color: var(--text-secondary) !important;
+    }
+
+    html[data-theme="dark"] .small {
+      color: var(--text-secondary);
+    }
+
+    html[data-theme="dark"] .lead {
+      color: var(--text-main);
+    }
+
+    /* Responsive Improvements */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2rem 0;
+      }
+      
+      .section {
+        padding: 2rem 0;
+      }
+      
+      .card-head,
+      .card-body {
+        padding: 1rem;
+      }
+      
+      .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .payment-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .qris-actions {
+        flex-direction: column;
+      }
+      
+      .kpis {
+        justify-content: center;
+      }
+      
+      .kpi {
+        min-width: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg nav-glass" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Putra Btt Store</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item"><a class="nav-link" href="index.html">Produk</a></li>
+            <li class="nav-item"><a class="nav-link" href="rekomendasi.html">Rekomendasi</a></li>
+            <li class="nav-item"><a class="nav-link active" href="about.html">Tentang</a></li>
+          </ul>
+          <div class="d-flex align-items-center gap-2 ms-lg-3">
+            <button id="navDarkBtn" class="nav-icon-btn" title="Toggle Dark Mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <!-- LEFT -->
+          <div class="col-lg-7">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+              <span class="tag"><i class="fa-solid fa-store"></i> Putra Btt Store</span>
+              <span class="tag"><i class="fa-solid fa-shield-halved"></i> Aman &amp; Terpercaya</span>
+              <span class="tag"><i class="fa-solid fa-bolt"></i> Proses Cepat</span>
+            </div>
+
+            <h1 class="display-5 fw-black lh-1 mb-4 hero-title">
+              Tentang <span class="hero-gradient">Putra Btt Store</span>
+            </h1>
+
+            <p class="lead text-secondary mb-4">
+              Putra Btt Store adalah toko digital yang menyediakan berbagai kebutuhan akun premium, voucher, dan layanan
+              digital lain untuk mempermudah aktivitas hiburan dan produktivitas kamu. Kami berkomitmen pada
+              <strong>kecepatan</strong>, <strong>keamanan</strong>, dan <strong>pelayanan responsif</strong> melalui WhatsApp.
+            </p>
+
+            <!-- CTA -->
+            <div class="d-flex flex-wrap gap-3 mb-4">
+              <a href="https://wa.me/6282340915319?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20produk%2Fkonfirmasi%20pembayaran."
+                target="_blank" class="btn btn-lg btn-gradient fw-800 rounded-4">
+                <i class="fa-brands fa-whatsapp me-2"></i> Chat Admin
+              </a>
+              <a href="#section-pembayaran" class="btn btn-lg btn-outline-secondary fw-800 rounded-4">
+                <i class="fa-solid fa-wallet me-2"></i> Lihat Metode Pembayaran
+              </a>
+            </div>
+
+            <!-- KPIs -->
+            <div class="kpis">
+              <div class="kpi">
+                <div class="kpi-num">10K+</div>
+                <div class="kpi-label">Transaksi Diproses</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-num">50+</div>
+                <div class="kpi-label">Produk Digital</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-num">08:00–22:00</div>
+                <div class="kpi-label">Jam Operasional WITA</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="col-lg-5">
+            <div class="text-center">
+              <div class="card-soft">
+                <div class="card-head">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-2">
+                      <span style="width:10px;height:10px;border-radius:50%;background:#ef4444;display:inline-block"></span>
+                      <span style="width:10px;height:10px;border-radius:50%;background:#f59e0b;display:inline-block"></span>
+                      <span style="width:10px;height:10px;border-radius:50%;background:#10b981;display:inline-block"></span>
+                    </div>
+                    <span class="small text-muted">Checkout Aman</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="fw-bold">Akun Premium</div>
+                    <span class="badge bg-success fw-800">Ready</span>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="small text-muted">Metode</div>
+                    <div class="d-flex gap-2 flex-wrap">
+                      <span class="chip small"><i class="fa-solid fa-building-columns me-1"></i>Bank</span>
+                      <span class="chip small"><i class="fa-solid fa-mobile-screen-button me-1"></i>E-Wallet</span>
+                      <span class="chip small"><i class="fa-solid fa-qrcode me-1"></i>QRIS</span>
+                    </div>
+                  </div>
+                  <div style="height:140px;border:2px dashed #e2e8f0;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(99,102,241,0));">
+                    <i class="fa-solid fa-qrcode" style="font-size:3rem;opacity:.7;color:var(--primary-color)"></i>
+                  </div>
+                  <div class="d-grid mt-3">
+                    <a href="#section-pembayaran" class="btn btn-gradient fw-800 rounded-3">
+                      <i class="fa-solid fa-arrow-right me-2"></i> Lihat Cara Bayar
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main>
+      <!-- Profil & Keunggulan -->
+      <section class="section">
+        <div class="container">
+          <div class="row g-4">
+            <!-- PROFIL / USP -->
+            <div class="col-lg-7">
+              <div class="card-soft h-100">
+                <div class="card-head d-flex align-items-center justify-content-between">
+                  <h5 class="fw-bold mb-0">
+                    <i class="fa-solid fa-circle-info me-2"></i>Profil Singkat
+                  </h5>
+                  <span class="badge rounded-pill bg-success fw-800">
+                    <i class="fa-solid fa-shield-halved me-1"></i> Terverifikasi
+                  </span>
+                </div>
+
+                <div class="card-body">
+                  <div class="lead mb-4">
+                    Sejak awal, Putra Btt Store dibangun untuk membantu pelanggan mendapatkan layanan digital yang
+                    <em>reliable</em> dengan harga terjangkau. Kami terus meningkatkan pengalaman belanja dengan
+                    antarmuka yang sederhana, metode pembayaran beragam, dan dukungan pelanggan yang ramah.
+                  </div>
+
+                  <!-- highlight chips -->
+                  <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="chip"><i class="fa-solid fa-bolt me-1"></i> Proses Cepat</span>
+                    <span class="chip"><i class="fa-solid fa-lock me-1"></i> Privasi Aman</span>
+                    <span class="chip"><i class="fa-solid fa-wallet me-1"></i> Banyak Metode Bayar</span>
+                  </div>
+
+                  <div class="row g-4">
+                    <div class="col-sm-6">
+                      <div class="bullet">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <div>
+                          <strong>Garansi transaksi</strong><br>
+                          <small class="text-muted">Jika terjadi kendala pada transaksi yang valid, kami bantu sampai beres.</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="bullet">
+                        <i class="fa-solid fa-headset"></i>
+                        <div>
+                          <strong>Support cepat</strong><br>
+                          <small class="text-muted">Admin responsif via WhatsApp pada jam operasional.</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="bullet">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <div>
+                          <strong>Produk variatif</strong><br>
+                          <small class="text-muted">Akun premium, voucher, & layanan digital populer.</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="bullet">
+                        <i class="fa-solid fa-lock"></i>
+                        <div>
+                          <strong>Privasi aman</strong><br>
+                          <small class="text-muted">Data transaksi & percakapan pelanggan terjaga kerahasiaannya.</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- KPI row -->
+                  <div class="row g-3 mt-3">
+                    <div class="col-6 col-md-4">
+                      <div class="kpi">
+                        <div class="kpi-num">10K+</div>
+                        <div class="kpi-label">Transaksi</div>
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <div class="kpi">
+                        <div class="kpi-num">50+</div>
+                        <div class="kpi-label">Produk Digital</div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <div class="kpi">
+                        <div class="kpi-num">Sejak 2021</div>
+                        <div class="kpi-label">Beroperasi</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4">
+                    <a href="https://putrabttstore.web.id" target="_blank" class="btn btn-gradient rounded-3 fw-800">
+                      <i class="fa-solid fa-arrow-up-right-from-square me-2"></i> Kunjungi Website
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KONTAK / OPERASIONAL -->
+            <div class="col-lg-5">
+              <div class="card-soft h-100">
+                <div class="card-head d-flex align-items-center justify-content-between">
+                  <h5 class="fw-bold mb-0"><i class="fa-solid fa-message me-2"></i>Kontak & Operasional</h5>
+                  <span class="badge rounded-pill bg-primary fw-800">
+                    <i class="fa-solid fa-clock me-1"></i> 08:00–22:00 WITA
+                  </span>
+                </div>
+
+                <div class="card-body">
+                  <div class="contact-row">
+                    <div class="contact-item">
+                      <div class="d-flex align-items-center gap-3 flex-1">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <div>
+                          <div class="label">WhatsApp</div>
+                          <a href="https://wa.me/6282340915319" target="_blank" class="value">6282340915319</a>
+                        </div>
+                      </div>
+                      <div class="d-flex gap-2 flex-wrap">
+                        <a class="btn btn-sm btn-gradient fw-800 rounded-3 d-flex align-items-center justify-content-center text-center" target="_blank" href="https://wa.me/6282340915319?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20produk%2Fkonfirmasi%20pembayaran.">
+                          <i class="fa-brands fa-whatsapp me-1 text-white"></i> Chat
+                        </a>
+                        <button class="btn btn-sm copy-btn rounded-3" data-copy="6282340915319">
+                          <i class="fa-regular fa-copy me-1"></i> Copy
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="contact-item">
+                      <div class="d-flex align-items-center gap-3 flex-1">
+                        <i class="fa-solid fa-globe"></i>
+                        <div>
+                          <div class="label">Website</div>
+                          <a href="https://putrabttstore.web.id" target="_blank" class="value">putrabttstore.web.id</a>
+                        </div>
+                      </div>
+                      <div>
+                        <a class="btn btn-sm btn-outline-secondary rounded-3" target="_blank" href="https://putrabttstore.web.id">
+                          <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Buka
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Hours -->
+                  <div class="hours-box mt-4">
+                    <div class="hours-title"><i class="fa-solid fa-calendar-week me-2"></i> Jam Operasional</div>
+                    <ul class="hours-list">
+                      <li><span>Senin–Minggu</span><span class="fw-bold">08:00–22:00 WITA</span></li>
+                    </ul>
+                    <div class="small text-muted mt-3">
+                      Di luar jam operasional, balasan mungkin sedikit lebih lama. Terima kasih atas pengertiannya.
+                    </div>
+                  </div>
+
+                  <!-- Quick CTA -->
+                  <div class="d-flex flex-wrap gap-2 mt-4">
+                    <a href="#section-pembayaran" class="btn btn-outline-secondary rounded-3 fw-800">
+                      <i class="fa-solid fa-wallet me-1"></i> Metode Pembayaran
+                    </a>
+                    <a href="rekomendasi.html" class="btn btn-outline-secondary rounded-3 fw-800">
+                      <i class="fa-solid fa-clapperboard me-1"></i> Rekomendasi
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metode Pembayaran -->
+          <div class="mt-5" id="section-pembayaran">
+            <div class="card-soft">
+              <div class="card-head">
+                <h4 class="fw-bold mb-0"><i class="fa-solid fa-wallet me-3"></i>Metode Pembayaran</h4>
+              </div>
+              <div class="card-body">
+                <div class="payment-grid">
+                  <!-- BANK -->
+                  <div class="payment-card">
+                    <div class="payment-header">
+                      <h6 class="fw-bold mb-0 d-flex align-items-center">
+                        <i class="fa-solid fa-building-columns me-2"></i>Transfer Bank
+                      </h6>
+                    </div>
+                    <div class="payment-body">
+                      <div class="payment-item">
+                        <div class="payment-info">
+                          <div class="payment-name">BCA</div>
+                          <div class="payment-details">2690525421 — a.n. <strong>ARYA DWINATA</strong></div>
+                        </div>
+                        <button class="copy-btn" data-copy="2690525421">
+                          <i class="fa-regular fa-copy me-1"></i>Copy
+                        </button>
+                      </div>
+                      <div class="payment-item">
+                        <div class="payment-info">
+                          <div class="payment-name">SeaBank</div>
+                          <div class="payment-details">901038986845 — a.n. <strong>ARYA DWINATA</strong></div>
+                        </div>
+                        <button class="copy-btn" data-copy="901038986845">
+                          <i class="fa-regular fa-copy me-1"></i>Copy
+                        </button>
+                      </div>
+                      <div class="payment-item">
+                        <div class="payment-info">
+                          <div class="payment-name">BRI</div>
+                          <div class="payment-details">1316 0100 2224 531 — a.n. <strong>ARYA DWINATA</strong></div>
+                        </div>
+                        <button class="copy-btn" data-copy="1316 0100 2224 531">
+                          <i class="fa-regular fa-copy me-1"></i>Copy
+                        </button>
+                      </div>
+                      <div class="payment-item">
+                        <div class="payment-info">
+                          <div class="payment-name">MANDIRI</div>
+                          <div class="payment-details">1610013878009 — a.n. <strong>ARYA DWINATA</strong></div>
+                        </div>
+                        <button class="copy-btn" data-copy="1610013878009">
+                          <i class="fa-regular fa-copy me-1"></i>Copy
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- E-WALLET -->
+                  <div class="payment-card">
+                    <div class="payment-header">
+                      <h6 class="fw-bold mb-0 d-flex align-items-center">
+                        <i class="fa-solid fa-mobile-screen-button me-2"></i>E-Wallet
+                      </h6>
+                    </div>
+                    <div class="payment-body">
+                      <div class="payment-item">
+                        <div class="payment-info">
+                          <div class="payment-name">DANA</div>
+                          <div class="payment-details">087898169768 — a.n. <strong>ARYA DWINATA</strong></div>
+                        </div>
+                        <button class="copy-btn" data-copy="087898169768">
+                          <i class="fa-regular fa-copy me-1"></i>Copy
+                        </button>
+                      </div>
+                      <div class="payment-item">
+                        <div class="payment-info">
+                          <div class="payment-name">GOPAY</div>
+                          <div class="payment-details">087898169768 — a.n. <strong>ARYA DWINATA</strong></div>
+                        </div>
+                        <button class="copy-btn" data-copy="087898169768">
+                          <i class="fa-regular fa-copy me-1"></i>Copy
+                        </button>
+                      </div>
+                      <div class="payment-item">
+                        <div class="payment-info">
+                          <div class="payment-name">OVO</div>
+                          <div class="payment-details">087898169768 — a.n. <strong>ARYA DWINATA</strong></div>
+                        </div>
+                        <button class="copy-btn" data-copy="087898169768">
+                          <i class="fa-regular fa-copy me-1"></i>Copy
+                        </button>
+                      </div>
+                      <div class="payment-item">
+                        <div class="payment-info">
+                          <div class="payment-name">ShopeePay</div>
+                          <div class="payment-details">087898169768 — a.n. <strong>ARYA DWINATA</strong></div>
+                        </div>
+                        <button class="copy-btn" data-copy="087898169768">
+                          <i class="fa-regular fa-copy me-1"></i>Copy
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- QRIS Section -->
+                <div class="qris-section">
+                  <div class="qris-header">
+                    <h6 class="fw-bold mb-2 d-flex align-items-center justify-content-center">
+                      <i class="fa-solid fa-qrcode me-2"></i>QRIS - Scan & Pay
+                    </h6>
+                    <p class="mb-0 text-muted">Bayar langsung dengan semua aplikasi e-wallet</p>
+                  </div>
+                  <div class="qris-content">
+                    <div class="qris-preview" data-bs-toggle="modal" data-bs-target="#qrisModal">
+                      <img src="qris.jpg" alt="QRIS Code" loading="lazy">
+                      <div class="qris-badge">
+                        <i class="fa-solid fa-qrcode me-1"></i>QRIS
+                      </div>
+                    </div>
+                    
+                    <div class="qris-info">
+                      <h5 class="qris-title">Pembayaran QRIS</h5>
+                      <p class="qris-subtitle">
+                        Scan QR code di atas menggunakan aplikasi pembayaran favorit Anda.<br>
+                        Mendukung semua e-wallet dan mobile banking.
+                      </p>
+                    </div>
+
+                    <div class="qris-actions">
+                      <button class="btn btn-gradient fw-800 rounded-3" data-bs-toggle="modal" data-bs-target="#qrisModal">
+                        <i class="fa-solid fa-expand me-2"></i>Perbesar QRIS
+                      </button>
+                      <button class="btn btn-outline-secondary copy-btn rounded-3 fw-800" data-copy="https://whatsapp.com/channel/0029Vaow3krFi8xdN20kUh20/111">
+                        <i class="fa-regular fa-copy me-1"></i>Copy Link QRIS
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Alert -->
+                <div class="mt-4">
+                  <div class="alert">
+                    <div class="d-flex gap-3">
+                      <i class="fa-solid fa-circle-exclamation"></i>
+                      <div>
+                        <strong>PENTING:</strong> Pastikan setelah transfer <u>langsung kirim bukti transfer</u> ke admin agar pesanan segera diproses. Screenshot bukti pembayaran dan kirim via WhatsApp.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Final -->
+      <section class="section" style="padding-top:0">
+        <div class="container">
+          <div class="card-soft">
+            <div class="card-body text-center">
+              <h5 class="fw-bold mb-3">Butuh bantuan atau konfirmasi pembayaran?</h5>
+              <p class="text-muted mb-4">Chat kami via WhatsApp. Sertakan bukti transfer agar proses lebih cepat dan akurat.</p>
+              <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="https://wa.me/6282340915319?text=Halo%20Admin%2C%20saya%20ingin%20konfirmasi%20pembayaran." target="_blank"
+                   class="btn btn-lg btn-gradient fw-800 rounded-4">
+                  <i class="fa-brands fa-whatsapp me-2"></i> Chat Admin Sekarang
+                </a>
+                <a href="index.html" class="btn btn-lg btn-outline-secondary fw-800 rounded-4">
+                  <i class="fa-solid fa-shopping-cart me-2"></i> Lihat Produk
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- QRIS Modal -->
+    <div class="modal fade" id="qrisModal" tabindex="-1" aria-labelledby="qrisModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="qrisModalLabel">
+              <i class="fa-solid fa-qrcode me-2"></i>QRIS Code - Scan untuk Bayar
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <img src="qris.jpg" alt="QRIS Full Size" class="modal-qr-image">
+            <div class="mt-4">
+              <p class="text-muted">
+                <strong>Cara pembayaran:</strong><br>
+                1. Buka aplikasi e-wallet atau mobile banking<br>
+                2. Pilih menu Scan QR atau Bayar<br>
+                3. Arahkan kamera ke QR code di atas<br>
+                4. Masukkan nominal pembayaran<br>
+                5. Konfirmasi dan selesaikan pembayaran
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Dark Mode Button -->
+  <button class="floating-dark" id="floatingDarkBtn" title="Toggle Dark Mode">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navigation height management
+    const navbar = document.getElementById('mainNavbar');
+    function refreshNavHeight() {
+      const height = navbar ? navbar.offsetHeight : 64;
+      document.documentElement.style.setProperty('--nav-h', height + 'px');
+    }
+    
+    window.addEventListener('resize', refreshNavHeight);
+    window.addEventListener('orientationchange', refreshNavHeight);
+    document.addEventListener('DOMContentLoaded', refreshNavHeight);
+
+    // Active navigation link
+    (function setActiveNavigation() {
+      const currentPath = location.pathname.split('/').pop() || 'about.html';
+      document.querySelectorAll('.nav-link').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.endsWith(currentPath)) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    })();
+
+    // Dark mode functionality
+    (function initializeTheme() {
+      const savedTheme = localStorage.getItem("pbt_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      
+      const floatingBtn = document.getElementById("floatingDarkBtn");
+      const navBtn = document.getElementById("navDarkBtn");
+      
+      function updateIcon(button) {
+        if (!button) return;
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        button.innerHTML = `<i class="fa-solid ${isDark ? 'fa-sun' : 'fa-moon'}"></i>`;
+      }
+      
+      updateIcon(floatingBtn);
+      updateIcon(navBtn);
+      
+      function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("pbt_theme", newTheme);
+        
+        updateIcon(floatingBtn);
+        updateIcon(navBtn);
+      }
+      
+      if (floatingBtn) floatingBtn.addEventListener("click", toggleTheme);
+      if (navBtn) navBtn.addEventListener("click", toggleTheme);
+    })();
+
+    // Copy to clipboard functionality
+    async function copyToClipboard(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showNotification('Berhasil disalin: ' + text);
+      } catch (error) {
+        console.error('Copy failed:', error);
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          showNotification('Berhasil disalin: ' + text);
+        } catch (fallbackError) {
+          alert('Gagal menyalin. Salin manual: ' + text);
+        }
+        document.body.removeChild(textArea);
+      }
+    }
+
+    // Event delegation for copy buttons
+    document.addEventListener('click', (event) => {
+      const copyButton = event.target.closest('.copy-btn');
+      if (!copyButton) return;
+      
+      const textToCopy = copyButton.getAttribute('data-copy');
+      if (textToCopy) {
+        copyToClipboard(textToCopy);
+      }
+    });
+
+    // Notification system
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.textContent = message;
+      
+      Object.assign(notification.style, {
+        position: 'fixed',
+        left: '50%',
+        bottom: '2rem',
+        transform: 'translateX(-50%)',
+        background: 'rgba(30,41,59,.95)',
+        color: '#fff',
+        padding: '12px 20px',
+        borderRadius: '12px',
+        boxShadow: '0 8px 32px rgba(0,0,0,.3)',
+        zIndex: '9999',
+        fontSize: '14px',
+        fontWeight: '600',
+        maxWidth: '90vw',
+        textAlign: 'center',
+        opacity: '1',
+        transition: 'opacity 0.3s ease'
+      });
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.opacity = '0';
+      }, 2000);
+      
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 2300);
+    }
+
+    // Smooth scrolling for internal links
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      
+      const targetId = link.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        event.preventDefault();
+        
+        const navbarHeight = document.getElementById('mainNavbar').offsetHeight;
+        const targetPosition = targetElement.offsetTop - navbarHeight - 20;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+
+    // Modal backdrop click prevention for better UX
+    document.addEventListener('DOMContentLoaded', () => {
+      const qrisModal = document.getElementById('qrisModal');
+      if (qrisModal) {
+        qrisModal.addEventListener('click', (event) => {
+          if (event.target === qrisModal) {
+            // Allow closing when clicking backdrop
+            const modal = bootstrap.Modal.getInstance(qrisModal);
+            if (modal) modal.hide();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
