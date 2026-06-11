@@ -3067,23 +3067,6 @@
         });
         devtoolsDetector.launch();
       }
-
-      const checkSecurity = () => {
-        // A. Dimension check (docked devtools detection)
-        const threshold = 160;
-        const widthDev = window.outerWidth - window.innerWidth > threshold;
-        const heightDev = window.outerHeight - window.innerHeight > threshold;
-        if (widthDev || heightDev) {
-          blockAccess();
-          return true;
-        }
-        return false;
-      };
-
-      // Run check immediately, on resize, and periodically
-      checkSecurity();
-      window.addEventListener('resize', checkSecurity);
-      setInterval(checkSecurity, 500);
     })();
 
     window.addEventListener('load', () => document.body.classList.add('loaded'));
