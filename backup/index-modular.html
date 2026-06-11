@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Putra Btt Store - Price List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container-fluid">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg nav-glass" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Putra Btt Store</a>
+
+        <div class="d-flex align-items-center d-lg-none ms-auto gap-1">
+          
+          <!-- Search icon mobile -->
+          <button class="nav-icon-btn d-inline-flex" type="button" data-nav-search>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+
+          <!-- Menu toggler mobile -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+        </div>
+        
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item"><a class="nav-link" data-scroll href="#produk">Produk</a></li>
+            <li class="nav-item"><a class="nav-link" href="rekomendasi.html">Rekomendasi</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">Tentang</a></li>
+          </ul>
+
+          <!-- ICON UNTUK DESKTOP -->
+          <div class="d-flex align-items-center gap-2 ms-lg-3">
+            <button class="nav-icon-btn position-relative d-none d-lg-inline-flex"
+                    title="Cari Produk" data-nav-search>
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <button id="navDarkBtn" class="nav-icon-btn position-relative" title="Toggle Dark Mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <button class="nav-icon-btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <span id="navCartCount" class="nav-cart-count">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ========== HERO SECTION (a) ========== -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-md-7">
+            <div class="hero-badge">
+              <i class="fa-solid fa-shield-check"></i>
+              <span>Produk digital cepat, aman, dan bergaransi</span>
+            </div>
+            <h1 class="hero-title">
+              Semua Aplikasi Premium<br class="d-none d-md-block" />
+              Dalam Satu Toko Digital.
+            </h1>
+            <p class="hero-subtitle">
+              Dapatkan akses Netflix, YouTube Premium, Spotify, Canva Pro, CapCut, dan banyak lagi
+              dengan harga bersahabat dan dukungan admin yang responsif.
+            </p>
+            <div class="hero-actions">
+              <a href="#listProduk" data-scroll class="btn btn-primary px-4 py-2">
+                <i class="fa-solid fa-tags me-2"></i> Lihat Harga & Produk
+              </a>
+              <a href="https://wa.me/6282340915319" target="_blank" class="btn btn-outline-success px-4 py-2">
+                <i class="fa-brands fa-whatsapp me-2"></i> Chat Admin
+              </a>
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-3 mt-3">
+              <div class="hero-pill">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Proses estimasi 1–10 menit*</span>
+              </div>
+              <div class="hero-pill">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Garansi selama masa langganan sesuai dengan ketentuan yang berlaku</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="row g-3">
+              <div class="col-6">
+                <div class="hero-stat-card">
+                  <div class="hero-stat-value">1.000+</div>
+                  <div class="hero-stat-label">Pesanan terselesaikan</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="hero-stat-card">
+                  <div class="hero-stat-value">4.9/5</div>
+                  <div class="hero-stat-label">Rata-rata kepuasan pelanggan</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="hero-stat-card d-flex align-items-center gap-3">
+                  <div class="benefit-icon-wrap mb-0">
+                    <i class="fa-solid fa-qrcode"></i>
+                  </div>
+                  <div>
+                    <div class="hero-stat-label mb-1">Metode Pembayaran</div>
+                    <div class="hero-stat-value">QRIS • Transfer • E-Wallet*</div>
+                    <div class="small text-muted mt-1">*Disesuaikan dengan kebijakan terbaru Putra Btt Store.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Overlay -->
+    <div id="searchOverlay" class="search-overlay">
+      <div class="container">
+        <div class="search-overlay-inner">
+          <i class="fas fa-search overlay-icon"></i>
+          <input type="text" id="searchInput" class="form-control search-input"
+                placeholder="Cari produk favorit Anda..." />
+          <button class="btn btn-link text-decoration-none close-search" id="btnCloseSearch" aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+    </div>    
+
+    <!-- MAIN -->
+    <main id="produk">
+      <!-- ========== SECTION c: CARA ORDER ========== -->
+      <section class="steps-section" id="cara-order">
+        <div class="container">
+          <h2 class="section-title">Cara Order di Putra Btt Store</h2>
+          <p class="section-subtitle">Empat langkah singkat sampai akunmu aktif.</p>
+
+          <div class="steps-minimal">
+            <div class="step-pill">
+              <span class="step-pill-number">1</span>
+              <div class="step-pill-title">Pilih produk</div>
+              <p class="step-pill-text">
+                Scroll daftar produk, pilih paket yang sesuai kebutuhanmu.
+              </p>
+            </div>
+
+            <div class="step-pill">
+              <span class="step-pill-number">2</span>
+              <div class="step-pill-title">Tambahkan ke keranjang</div>
+              <p class="step-pill-text">
+                Klik <strong>Keranjang</strong> pada produk yang ingin kamu beli.
+              </p>
+            </div>
+
+            <div class="step-pill">
+              <span class="step-pill-number">3</span>
+              <div class="step-pill-title">Checkout via WhatsApp</div>
+              <p class="step-pill-text">
+                Tekan tombol <strong>Checkout via WhatsApp</strong> dan kirim pesan ke admin.
+              </p>
+            </div>
+
+            <div class="step-pill">
+              <span class="step-pill-number">4</span>
+              <div class="step-pill-title">Bayar & tunggu proses</div>
+              <p class="step-pill-text">
+                Lakukan pembayaran, pesanan diproses dan akun dikirim lewat WhatsApp.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRODUK (LIST DARI SHEET) -->
+      <section class="products-section" id="listProduk">
+        <div class="container">
+          <h2 class="section-title">Produk Digital Terpilih</h2>
+          <p class="section-subtitle">Dapatkan akses premium ke aplikasi dan layanan terbaik dengan harga ramah di kantong</p>
+          <div class="row g-3" id="produk-list"></div>
+          <div class="load-more-wrap">
+            <button id="btnLoadMore" class="btn btn-outline-primary px-4 py-2 mt-2">
+              <i class="fa-solid fa-rotate"></i> Muat Lebih
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SECTION b: KENAPA HARUS PUTRA BTT STORE ========== -->
+      <section class="benefit-section" id="keunggulan">
+        <div class="container">
+          <h2 class="section-title">Kenapa Harus Putra Btt Store?</h2>
+          <p class="section-subtitle">Bukan hanya murah, tapi juga aman, jelas, dan mudah dipahami bahkan untuk pemula.</p>
+
+          <div class="row g-3 g-md-4 mt-2">
+            <div class="col-md-3 col-sm-6">
+              <div class="benefit-card">
+                <div class="benefit-icon-wrap"><i class="fa-solid fa-shield-heart"></i></div>
+                <div class="benefit-title">Aman & Terpercaya</div>
+                <p class="benefit-text">
+                  Sudah melayani ratusan pelanggan dengan sistem yang jelas dan transparan. Order tercatat rapi dan mudah dilacak.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="benefit-card">
+                <div class="benefit-icon-wrap"><i class="fa-solid fa-bolt"></i></div>
+                <div class="benefit-title">Proses Cepat</div>
+                <p class="benefit-text">
+                  Estimasi proses 1–10 menit (jam kerja), dengan notifikasi yang jelas kapan order mulai diproses.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="benefit-card">
+                <div class="benefit-icon-wrap"><i class="fa-solid fa-arrows-rotate"></i></div>
+                <div class="benefit-title">Garansi Masa Pakai</div>
+                <p class="benefit-text">
+                  Jika akun bermasalah di masa garansi, akan dibantu sampai selesai sesuai ketentuan yang berlaku.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="benefit-card">
+                <div class="benefit-icon-wrap"><i class="fa-solid fa-headset"></i></div>
+                <div class="benefit-title">Support Ramah</div>
+                <p class="benefit-text">
+                  Admin responsif dan komunikatif, siap membantu jelaskan perbedaan paket sampai cara pakai akun.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+
+      <!-- ========== SECTION d: TESTIMONI ========== -->
+      <section class="testimonial-section" id="testimoni">
+        <div class="container">
+          <h2 class="section-title">Apa Kata Pelanggan?</h2>
+          <p class="section-subtitle">Beberapa testimoni yang sudah berbelanja produk digital di Putra Btt Store.</p>
+
+          <div class="row g-3 g-md-4 mt-2">
+            <div class="col-md-4">
+              <div class="testimonial-card">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="testimonial-name">R*** – Lombok</div>
+                    <div class="testimonial-meta">YouTube Premium 3 Bulan</div>
+                  </div>
+                  <div class="text-warning">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                  </div>
+                </div>
+                <p class="testimonial-text">
+                  “Proses cepat, admin ramah, dan dibantu sampai akun aktif. Bakal langganan lagi kalau habis.”
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testimonial-card">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="testimonial-name">S*** – Mahasiswa</div>
+                    <div class="testimonial-meta">Canva Pro + CapCut Pro</div>
+                  </div>
+                  <div class="text-warning">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                  </div>
+                </div>
+                <p class="testimonial-text">
+                  “Buat tugas kampus jadi jauh lebih gampang. Harganya juga masih masuk akal buat kantong anak kuliah.”
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testimonial-card">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="testimonial-name">A*** – Freelancer</div>
+                    <div class="testimonial-meta">Netflix & Spotify</div>
+                  </div>
+                  <div class="text-warning">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                  </div>
+                </div>
+                <p class="testimonial-text">
+                  “Sudah beberapa kali perpanjang, sejauh ini aman dan kalau ada kendala selalu dibantu sampai beres.”
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="small text-muted mt-3">
+            *Testimoni di atas merupakan rangkuman dari beberapa pelanggan. Untuk bukti transfer dan testimoni lengkap dapat diminta langsung ke admin.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== SECTION e: FAQ ========== -->
+      <section class="faq-section" id="faq">
+        <div class="container">
+          <h2 class="section-title">Pertanyaan yang Sering Diajukan</h2>
+          <p class="section-subtitle">Masih ragu atau bingung? Cek dulu beberapa pertanyaan umum berikut.</p>
+
+          <div class="row g-4 mt-2">
+            <div class="col-md-7">
+              <div class="accordion faq-accordion" id="faqAccordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="faqOneHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="false" aria-controls="faqOne">
+                      Berapa lama proses order biasanya?
+                    </button>
+                  </h2>
+                  <div id="faqOne" class="accordion-collapse collapse" aria-labelledby="faqOneHeading" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                      Estimasi proses normal antara <strong>1–10 menit</strong> pada jam operasional. Jika sedang ramai atau ada kendala teknis, admin akan menginformasikan estimasi terbaru.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="faqTwoHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+                      Kalau akun bermasalah di tengah masa langganan bagaimana?
+                    </button>
+                  </h2>
+                  <div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faqTwoHeading" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                      Silakan langsung hubungi admin dengan menyertakan bukti order. Selama masih dalam masa garansi dan sesuai ketentuan, akan dibantu
+                      <strong>perbaikan atau penggantian</strong> sesuai kebijakan Putra Btt Store.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="faqThreeHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">
+                      Metode pembayaran yang tersedia apa saja?
+                    </button>
+                  </h2>
+                  <div id="faqThree" class="accordion-collapse collapse" aria-labelledby="faqThreeHeading" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                      Untuk saat ini pembayaran dapat dilakukan melalui <strong>QRIS</strong> dan metode lain yang diinformasikan admin (seperti transfer bank
+                      atau e-wallet tertentu). Detail rekening akan dikirim setelah kamu checkout via WhatsApp.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="faqFourHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFour" aria-expanded="false" aria-controls="faqFour">
+                      Apakah akun bisa dipakai di banyak perangkat?
+                    </button>
+                  </h2>
+                  <div id="faqFour" class="accordion-collapse collapse" aria-labelledby="faqFourHeading" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                      Setiap aplikasi punya <strong>aturan penggunaan</strong> berbeda. Admin akan menjelaskan apakah akun boleh dipakai multi device,
+                      hanya 1 device, atau ada batasan login tertentu sebelum kamu melakukan pembayaran.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="faqFiveHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFive" aria-expanded="false" aria-controls="faqFive">
+                      Apakah ini akun legal?
+                    </button>
+                  </h2>
+                  <div id="faqFive" class="accordion-collapse collapse" aria-labelledby="faqFiveHeading" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                      Putra Btt Store berusaha mengikuti <strong>kebijakan penggunaan</strong> dari masing-masing platform. Detail terkait jenis akun
+                      (sharing, personal, family, dan lain-lain) akan dijelaskan oleh admin sesuai produk yang kamu pilih.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-5">
+              <div class="benefit-card">
+                <div class="benefit-icon-wrap mb-2">
+                  <i class="fa-solid fa-circle-question"></i>
+                </div>
+                <div class="benefit-title mb-1">Masih ada yang ingin ditanyakan?</div>
+                <p class="benefit-text mb-3">
+                  Kalau pertanyaanmu belum terjawab, kamu bisa langsung hubungi admin lewat WhatsApp. Jelaskan kebutuhanmu,
+                  nanti akan direkomendasikan paket yang paling pas.
+                </p>
+                <a href="https://wa.me/6282340915319?text=Halo%20min%2C%20saya%20mau%20tanya%20dulu%20sebelum%20order%20produk%20digital." target="_blank"
+                   class="btn btn-success w-100">
+                  <i class="fa-brands fa-whatsapp me-2"></i> Tanya Admin Sekarang
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SECTION f: KONTAK & FOOTER ========== -->
+      <section class="contact-section" id="kontak">
+        <div class="container">
+          <div class="row g-3 align-items-start">
+            <div class="col-md-5">
+              <span class="contact-pill mb-2">
+                <i class="fa-solid fa-building"></i>
+                <span>Putra Btt Store</span>
+              </span>
+              <h3 class="mt-2 mb-2" style="font-size:1.35rem;font-weight:700;">Hubungi & Ikuti Putra Btt Store</h3>
+              <p class="mb-2" style="font-size:.9rem;color:var(--muted-color);">
+                Untuk info promo terbaru, update layanan, dan panduan lengkap, kamu bisa menyimpan kontak dan follow channel berikut.
+              </p>
+              <ul class="list-unstyled small mb-0">
+                <li>Jam operasional: <strong>08.00 – 23.00 WITA</strong></li>
+                <li>Di luar jam tersebut, respon mungkin sedikit lebih lambat.</li>
+              </ul>
+            </div>
+            <div class="col-md-7">
+              <div class="row g-2">
+                <div class="col-sm-6">
+                  <a href="https://wa.me/6282340915319" target="_blank" class="contact-link">
+                    <i class="fa-brands fa-whatsapp text-success"></i>
+                    <div>
+                      <div>WhatsApp Admin</div>
+                      <div class="small text-muted">Tanya produk, cek harga, dan konfirmasi pembayaran.</div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-sm-6">
+                  <a href="#" class="contact-link">
+                    <i class="fa-brands fa-whatsapp text-success"></i>
+                    <div>
+                      <div>WhatsApp Group</div>
+                      <div class="small text-muted">Informasi terbaru mengenai produk dan promo</div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-sm-6">
+                  <a href="https://t.me/AutoOrderPBS_bot" target="_blank" class="contact-link">
+                    <i class="fa-brands fa-telegram text-primary"></i>
+                    <div>
+                      <div>Telegram Bot Auto Order</div>
+                      <div class="small text-muted">Pesan produk digital otomatis lewat Telegram.</div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-sm-6">
+                  <a href="https://putrabttstore.web.id" target="_blank" class="contact-link">
+                    <i class="fa-solid fa-globe"></i>
+                    <div>
+                      <div>Website Putra Btt Store</div>
+                      <div class="small text-muted">Informasi lengkap produk & layanan terbaru.</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-mini mt-3">
+            <div class="d-flex flex-wrap justify-content-between gap-2">
+              <span>&copy; <span id="footerYear"></span> Putra Btt Store. All rights reserved.</span>
+              <span>Made with <i class="fa-solid fa-heart text-danger"></i> dari Lombok.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal Detail -->
+  <div class="modal fade" id="produkModal" tabindex="-1" aria-labelledby="produkModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content" id="produkModalContent">
+        <div class="modal-header">
+          <h5 class="modal-title" id="produkModalLabel"><i class="fas fa-info-circle me-2"></i> Detail Produk</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-primary" id="modalAddCart"><i class="fa-solid fa-cart-plus me-2"></i><span>Keranjang</span></button>
+          <a href="#" class="btn btn-success" id="modalPesanBtn" target="_blank"><i class="fab fa-whatsapp me-2"></i><span>Pesan Sekarang</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offcanvas Cart -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+    <div class="offcanvas-header">
+      <button class="btn btn-link text-decoration-none d-inline d-md-none me-2" data-bs-dismiss="offcanvas" aria-label="Kembali">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <h5 class="offcanvas-title" id="offcanvasCartLabel"><i class="fa-solid fa-basket-shopping me-2"></i>Keranjang</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+      <div id="cartItems" class="mb-3"></div>
+      <div class="d-flex justify-content-between fw-bold fs-5">
+        <span>Total</span><span id="cartTotal">Rp0</span>
+      </div>
+      <div class="mt-3 d-grid gap-2">
+        <button class="btn btn-outline-danger" id="btnClearCart"><i class="fa-solid fa-trash me-2"></i>Hapus Keranjang</button>
+        <a href="#" target="_blank" id="btnCheckoutWA" class="btn btn-success"><i class="fab fa-whatsapp me-2"></i>Checkout via WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating buttons -->
+  <button class="floating-cart" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+    <i class="fa-solid fa-bag-shopping"></i><span class="count" id="cartCount">0</span>
+  </button>
+  <button class="floating-dark" id="floatingDarkBtn" title="Toggle Dark Mode">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Pastikan variabel tinggi navbar up-to-date saat modal dibuka
+    const navbar = document.getElementById('mainNavbar');
+    function refreshNavH(){
+      const h = navbar ? navbar.offsetHeight : 64;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+    }
+    ['resize','orientationchange'].forEach(ev=>window.addEventListener(ev, refreshNavH));
+    document.addEventListener('shown.bs.modal', refreshNavH);
+    document.addEventListener('shown.bs.collapse', refreshNavH);
+    document.addEventListener('hidden.bs.collapse', refreshNavH);
+    refreshNavH();
+  </script>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
