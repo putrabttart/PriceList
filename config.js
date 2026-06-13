@@ -15,13 +15,100 @@ window.CONFIG = {
   // Google Sheets Config (for index.html)
   sheetIdProducts: "1wgiOQyZfEZMB2nrO8E3ScBDqFxDGYiKXN3lDenUpXrs",
   sheetNameProducts: "Produk",
-  sheetNameInfo: "informasi_modal"
+  sheetNameInfo: "informasi_modal",
+
+  // Theme Config
+  // Options: "green" (default), "blue", "purple", "orange", "red", "custom"
+  activeTheme: "green",
+
+  // Custom Theme Colors (Only used if activeTheme is set to "custom")
+  customTheme: {
+    primary: "#00AA5B",       // Main Brand Color
+    primaryHover: "#03ac0e",  // Button Hover Color
+    primaryLight: "#e8f8f0",  // Light Background Accents
+    accent: "#ff5722"         // Highlights, Badges
+  }
 };
+
+// Apply theme dynamically as early as possible
+applyDynamicTheme();
 
 // Automatic replacement on page load
 document.addEventListener("DOMContentLoaded", () => {
   applyDynamicBranding();
 });
+
+function applyDynamicTheme() {
+  const cfg = window.CONFIG;
+  if (!cfg) return;
+
+  const themes = {
+    green: {
+      primary: "#00AA5B",
+      primaryHover: "#03ac0e",
+      primaryLight: "#e8f8f0",
+      accent: "#ff5722"
+    },
+    blue: {
+      primary: "#0084FF",
+      primaryHover: "#006fe6",
+      primaryLight: "#e6f7ff",
+      accent: "#ff4d4f"
+    },
+    purple: {
+      primary: "#7c3aed",
+      primaryHover: "#6d28d9",
+      primaryLight: "#f5f3ff",
+      accent: "#10b981"
+    },
+    orange: {
+      primary: "#ff5722",
+      primaryHover: "#f4511e",
+      primaryLight: "#fff3e0",
+      accent: "#29b6f6"
+    },
+    red: {
+      primary: "#e11d48",
+      primaryHover: "#be123c",
+      primaryLight: "#fff1f2",
+      accent: "#eab308"
+    }
+  };
+
+  let activeThemeColors = themes[cfg.activeTheme || "green"];
+
+  // Fallback to custom theme if selected
+  if (cfg.activeTheme === "custom" && cfg.customTheme) {
+    activeThemeColors = {
+      primary: cfg.customTheme.primary || "#00AA5B",
+      primaryHover: cfg.customTheme.primaryHover || "#03ac0e",
+      primaryLight: cfg.customTheme.primaryLight || "#e8f8f0",
+      accent: cfg.customTheme.accent || "#ff5722"
+    };
+  }
+
+  if (activeThemeColors) {
+    const css = `
+      :root {
+        --primary-color: ${activeThemeColors.primary} !important;
+        --primary-color-hover: ${activeThemeColors.primaryHover} !important;
+        --primary-light: ${activeThemeColors.primaryLight} !important;
+        --accent-color: ${activeThemeColors.accent} !important;
+        --success-color: ${activeThemeColors.primary} !important;
+      }
+    `;
+    const styleEl = document.createElement("style");
+    styleEl.id = "dynamic-theme-style";
+    styleEl.innerHTML = css;
+    if (document.head) {
+      document.head.appendChild(styleEl);
+    } else {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.head.appendChild(styleEl);
+      });
+    }
+  }
+}
 
 function applyDynamicBranding() {
   const cfg = window.CONFIG;
@@ -81,7 +168,7 @@ function applyDynamicBranding() {
       }
     }
   }
-  
+
   if (document.body) {
     walkTextNodes(document.body);
   }
@@ -95,7 +182,7 @@ function applyDynamicBranding() {
       href = href.replace(/AutoOrderPBS_bot/g, cfg.telegramUsername);
       href = href.replace(/putrabttstore\.web\.id/g, cfg.websiteUrl.replace(/^https?:\/\//i, ''));
       href = href.replace(/admin@putrabttstore\.web\.id/g, cfg.emailAdmin);
-      
+
       // Handle WhatsApp URL scheme formatting
       if (href.startsWith('https://wa.me/')) {
         try {
@@ -114,7 +201,7 @@ function applyDynamicBranding() {
       } else if (href.includes('putrabttstore.web.id')) {
         href = cfg.websiteUrl;
       }
-      
+
       link.setAttribute('href', href);
     }
   });
